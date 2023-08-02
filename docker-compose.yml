@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+  mysqldb:
+    restart: always
+    image: mysql
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DB}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - '${MYSQL_PORT}:3306'
+  server:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_DB=${MYSQL_DB}
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+    container_name: ${SERVER_NAME}
+    restart: always
+    depends_on:
+      - mysqldb
+    ports:
+      - '${D_SERVER_PORT}:8080'
+
+volumes:
+  mysql-data:
