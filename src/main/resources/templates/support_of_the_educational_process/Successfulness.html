@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Деканат-Успішність</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+    /* Загальні стилі */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Стилі для заголовків */
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Стилі для меню */
+    .menu {
+        display: flex;
+        list-style-type: none;
+        background-color: #333;
+        padding: 10px;
+        margin-top: 0;
+        justify-content: flex-end;
+    }
+    .menu-item {
+        margin-right: 20px;
+        position: relative;
+    }
+    .menu-item a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .menu-item a:hover {
+        background-color: #00a383;
+    }
+    .menu-item.active a {
+        background-color: #00b894;
+    }
+    .submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+    .menu-item:hover .submenu {
+        display: block;
+    }
+    .submenu-item {
+        margin-bottom: 5px;
+    }
+    .submenu-item a {
+        color: #333;
+        text-decoration: none;
+        word-wrap: break-word;
+    }
+
+
+
+    /* Стилі для таблиці */
+    .table-container {
+      overflow-x: auto;
+      margin-top: 20px;
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table th, .table td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    .table th {
+      background-color: #f2f2f2;
+    }
+    </style>
+</head>
+<body>
+<div id="app">
+    <ul class="menu">
+        <li class="menu-item"><a href="/" class="active">Головна</a></li>
+        <li class="menu-item">
+            <a href="#">Супровiд навчального процесу</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="/Training_plans">Навчальні плани</a></li>
+                <li class="submenu-item"><a href="/Successfulness">Успішність</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Внесення змін та переведення на курс</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="/View_and_edit_cards">Перегляд та правка карток</a></li>
+                <li class="submenu-item"><a href="/Entering_grades_from_the_sheet">Введення оцінок з відомості</a></li>
+                <li class="submenu-item"><a href="/View_debtors">Перегляд боржників</a></li>
+                <li class="submenu-item"><a href="/Transfer_to_the_course">Переведення на курс</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Перегляд та друк інформації</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="#">Список групи</a></li>
+                <li class="submenu-item"><a href="#">Відомості</a></li>
+                <li class="submenu-item"><a href="#">Виконання учбових планів</a></li>
+                <li class="submenu-item"><a href="#">Друк</a></li>
+                <li class="submenu-item"><a href="#">Зведена статистична відомість факультету</a></li>
+                <li class="submenu-item"><a href="#">Рейтинг студентів</a></li>
+                <li class="submenu-item"><a href="#">Бухгалтерія</a></li>
+                <li class="submenu-item"><a href="#">Перегляд додатку</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Модульний контроль</a>
+        </li>
+        <li class="menu-item">
+            <a href="#">Довідник</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="#">Довідник кафедри</a></li>
+                <li class="submenu-item"><a href="#">Довідник дисциплін</a></li>
+                <li class="submenu-item"><a href="#">Довідник спеціальностей</a></li>
+                <li class="submenu-item"><a href="#">Довідник факультетів</a></li>
+            </ul>
+        </li>
+        <li class="menu-item" style="margin-left: auto;"><a href="#">Вийти з аккаунту</a></li>
+    </ul>
+    <div class="content">
+        <div class="form">
+            <label for="group">Група:</label>
+            <select id="group" v-model="selectedGroup">
+                <option v-for="group in groups" :key="group">{{ group }}</option>
+            </select>
+            <label for="student">Студент:</label>
+            <select id="student" v-model="selectedStudent">
+                <option v-for="student in students" :key="student">{{ student }}</option>
+            </select>
+        </div>
+        <div class="table-container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Предмет</th>
+                    <th>Семестр</th>
+                    <th>Години</th>
+                    <th>Залік</th>
+                    <th>Екзамен</th>
+                    <th>КР</th>
+                    <th>КП</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="subject in subjects" :key="subject">
+                    <td>{{ subject }}</td>
+                    <td>{{ getRandomSemester() }}</td>
+                    <td>{{ getRandomHours() }}</td>
+                    <td>{{ getRandomValue() }}</td>
+                    <td>{{ getRandomValue() }}</td>
+                    <td>{{ getRandomValue() }}</td>
+                    <td>{{ getRandomValue() }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+new Vue({
+  el: '#app',
+  data: {
+    selectedGroup: '',
+    selectedStudent: '',
+    groups: ['Група 1', 'Група 2', 'Група 3'],
+    students: ['Студент 1', 'Студент 2', 'Студент 3'],
+    subjects: [
+      'Математика',
+      'Фізика',
+      'Хімія',
+      'Історія',
+      'Географія',
+      'Біологія',
+      'Англійська мова',
+      'Українська мова',
+      'Література',
+      'Музика'
+    ]
+  },
+  methods: {
+    getRandomValue() {
+      return Math.floor(Math.random() * 101);
+    },
+    getRandomSemester() {
+      return Math.floor(Math.random() * 10) + 1;
+    },
+    getRandomHours() {
+      return Math.floor(Math.random() * 5) + 1;
+    }
+  }
+});
+</script>
+</body>
+</html>

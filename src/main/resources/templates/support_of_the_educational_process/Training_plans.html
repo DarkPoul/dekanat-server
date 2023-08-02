@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ua">
+<head>
+    <title>Навчальні плани</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <style>
+    /* Загальні стилі */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Стилі для заголовків */
+    h1, h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Стилі для меню */
+    .menu {
+        display: flex;
+        list-style-type: none;
+        background-color: #333;
+        padding: 10px;
+        margin-top: 0;
+        justify-content: flex-end;
+    }
+    .menu-item {
+        margin-right: 20px;
+        position: relative;
+    }
+    .menu-item a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .menu-item a:hover {
+        background-color: #00a383;
+    }
+    .menu-item.active a {
+        background-color: #00b894;
+    }
+    .submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+    .menu-item:hover .submenu {
+        display: block;
+    }
+    .submenu-item {
+        margin-bottom: 5px;
+    }
+    .submenu-item a {
+        color: #333;
+        text-decoration: none;
+        word-wrap: break-word;
+    }
+
+    /* Стилі для таблиці */
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    tr:hover {background-color: #f5f5f5;}
+
+    /* Стилі для кнопки */
+    .button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 8px 16px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    /* Стилі для фільтрів */
+    .filters {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-label {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .filter-select {
+      margin-right: 20px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    /* Стилі для введення тексту */
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    input[type="text"]:focus,
+    input[type="number"]:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+
+    /* Стилі для таблиці */
+    td, th {
+      text-align: center;
+    }
+
+    td.title-column {
+      text-align: left;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    td:nth-child(1) { /* Ширший стовпчик для номеру кафедри */
+      width: 2%;
+    }
+    td:nth-child(2) { /* Ширший стовпчик для номеру кафедри */
+      width: 30%;
+    }
+    td:nth-child(3) { /* Ширший стовпчик для номеру кафедри */
+      width: 5%;
+    }
+    td:nth-child(4) { /* Ширший стовпчик для номеру кафедри */
+      width: 5%;
+    }
+    td:nth-child(5) { /* Ширший стовпчик для номеру кафедри */
+      width: 5%;
+    }
+    td:nth-child(6) { /* Ширший стовпчик для номеру кафедри */
+      width: 5%;
+    }
+    td:nth-child(7) { /* Ширший стовпчик для номеру кафедри */
+      width: 5%;
+    }
+    td:nth-child(8) { /* Ширший стовпчик для номеру кафедри */
+      width: 5%;
+    }
+    td:nth-child(9) { /* Ширший стовпчик для номеру кафедри */
+      width: 5%;
+    }
+    td:nth-child(10) { /* Ширший стовпчик для номеру кафедри */
+      width: 5%;
+    }
+
+    /* Стилі для блоку кнопок збереження */
+    .button-block {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+}
+
+.button-subblock {
+  margin-right: 10px;
+}
+
+.button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+  </style>
+</head>
+<body>
+<div id="app">
+    <ul class="menu">
+        <li class="menu-item"><a href="/" class="active">Головна</a></li>
+        <li class="menu-item">
+            <a href="#">Супровiд навчального процесу</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="/Training_plans">Навчальні плани</a></li>
+                <li class="submenu-item"><a href="/Successfulness">Успішність</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Внесення змін та переведення на курс</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="/View_and_edit_cards">Перегляд та правка карток</a></li>
+                <li class="submenu-item"><a href="/Entering_grades_from_the_sheet">Введення оцінок з відомості</a></li>
+                <li class="submenu-item"><a href="/View_debtors">Перегляд боржників</a></li>
+                <li class="submenu-item"><a href="/Transfer_to_the_course">Переведення на курс</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Перегляд та друк інформації</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="#">Список групи</a></li>
+                <li class="submenu-item"><a href="#">Відомості</a></li>
+                <li class="submenu-item"><a href="#">Виконання учбових планів</a></li>
+                <li class="submenu-item"><a href="#">Друк</a></li>
+                <li class="submenu-item"><a href="#">Зведена статистична відомість факультету</a></li>
+                <li class="submenu-item"><a href="#">Рейтинг студентів</a></li>
+                <li class="submenu-item"><a href="#">Бухгалтерія</a></li>
+                <li class="submenu-item"><a href="#">Перегляд додатку</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Модульний контроль</a>
+        </li>
+        <li class="menu-item">
+            <a href="#">Довідник</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="#">Довідник кафедри</a></li>
+                <li class="submenu-item"><a href="#">Довідник дисциплін</a></li>
+                <li class="submenu-item"><a href="#">Довідник спеціальностей</a></li>
+                <li class="submenu-item"><a href="#">Довідник факультетів</a></li>
+            </ul>
+        </li>
+        <li class="menu-item" style="margin-left: auto;"><a href="#">Вийти з аккаунту</a></li>
+    </ul>
+    <div class="filters" style="margin-left: 20px;">
+        <label for="group" class="filter-label">Група:</label>
+        <select name="Group" id="group" v-model="selectedGroup" class="filter-select">
+            <option value="">Всі</option>
+            <option th:each="el:${group}" th:value="${el}" th:text="${el}"></option>
+        </select>
+
+        <label for="session" class="filter-label">Сесія:</label>
+        <select id="session" v-model="selectedSession" class="filter-select">
+            <option value="1">Зимова</option>
+            <option value="2">Літня</option>
+        </select>
+    </div>
+    <h2 style="text-align: center;">Навчальний план</h2>
+    <table  style="margin-left: 20px;">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Дисципліна</th>
+            <th>Години</th>
+            <th>Екзамен</th>
+            <th>Залік</th>
+            <th>Д.залік</th>
+            <th>КП</th>
+            <th>КР</th>
+            <th>РГР</th>
+            <th>№ кафедри</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="discipline in Discipline" :key="discipline.id">
+            <td>{{ discipline.id }}</td>
+            <td class="title-column">{{ discipline.title }}</td>
+            <td>{{ discipline.hours }}</td>
+            <td><input v-model="discipline.exam" type="checkbox" class="input-field"></td>
+            <td><input v-model="discipline.credit" type="checkbox" class="input-field"></td>
+            <td><input v-model="discipline.d_credit" type="checkbox" class="input-field"></td>
+            <td><input v-model="discipline.kp" type="checkbox" class="input-field"></td>
+            <td><input v-model="discipline.kr" type="checkbox" class="input-field"></td>
+            <td><select v-model="discipline.rgr" class="input-field">
+                <option value="1">ні</option>
+                <option value="2">4</option>
+                <option value="3">6</option>
+                <option value="4">8</option>
+            </select></td>
+            <td>{{ discipline.department }}</td>
+            <td><button class="button" @click="delete_discipline(discipline.id)">Видалити</button></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td><input v-model="newDiscipline.title" type="text"></td>
+            <td><input v-model="newDiscipline.hours" type="number"></td>
+            <td><input v-model="newDiscipline.exam" type="checkbox" class="input-field"></td>
+            <td><input v-model="newDiscipline.credit" type="checkbox"></td>
+            <td><input v-model="newDiscipline.d_credit" type="checkbox"></td>
+            <td><input v-model="newDiscipline.kp" type="checkbox"></td>
+            <td><input v-model="newDiscipline.kr" type="checkbox"></td>
+            <td></td>
+            <td><input v-model="newDiscipline.department" type="number"></td>
+            <td><button class="button" @click="add_discipline">Додати</button></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <div class="button-block">
+        <div class="button-subblock">
+            <button class="button" @click="groupAction('рознести')">Рознести для групи</button>
+        </div>
+        <div class="button-subblock">
+            <button class="button" @click="extendedAction('рознести')">Розширене рознесення</button>
+        </div>
+        <div class="button-subblock">
+            <button class="button" @click="groupAction('видалити')">Видалити для групи</button>
+        </div>
+        <div class="button-subblock">
+            <button class="button" @click="extendedAction('видалити')">Розширене видалення</button>
+        </div>
+    </div>
+
+
+
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data() {
+            return {
+                items: [], // Replace 'Discipline' with 'items'
+                newDiscipline: {
+                    id: '',
+                    title: '',
+                    hours: '',
+                    exam: false,
+                    credit: false,
+                    d_credit: false,
+                    kp: false,
+                    kr: false,
+                    rgr: '1',
+                    department: ''
+                },
+                selectedGroup: '', // Add this line
+                selectedSession: '' // Add this line
+            };
+        },
+        mounted() {
+            axios.get('/api/items') // Make sure Axios is defined and imported properly
+                .then(response => {
+                    this.items = response.data; // Replace 'Discipline' with 'items'
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        },
+        computed: {
+            filteredItems() { // Modify the computed property to return items
+                let filtered = this.items;
+                if (this.selectedGroup !== '') {
+                    filtered = filtered.filter(discipline => discipline.group === this.selectedGroup);
+                }
+                if (this.selectedSession !== '') {
+                    filtered = filtered.filter(discipline => discipline.session === this.selectedSession);
+                }
+                return filtered;
+            }
+        },
+        methods: {
+            add_discipline() {
+                if (this.newDiscipline.title !== '' && this.newDiscipline.hours !== '') {
+                    const lastId = this.items.length > 0 ? this.items[this.items.length - 1].id : 0;
+                    const newId = lastId + 1;
+                    this.items.push({ ...this.newDiscipline, id: newId.toString() });
+                    this.resetForm();
+                }
+            },
+            resetForm() {
+                this.newDiscipline = {
+                    id: '',
+                    title: '',
+                    hours: '',
+                    exam: false,
+                    credit: false,
+                    d_credit: false,
+                    kp: false,
+                    kr: false,
+                    rgr: '1'
+                };
+            },
+            delete_discipline(id) {
+                this.items = this.items.filter(discipline => discipline.id !== id);
+                this.updateIds();
+            },
+            updateIds() {
+                this.items.forEach((discipline, index) => {
+                    discipline.id = (index + 1).toString();
+                });
+            }
+        }
+    });
+</script>
+</body>
+</html>

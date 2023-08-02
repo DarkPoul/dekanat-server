@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Перегляд даних студента</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.7.14"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-the-mask/dist/vue-the-mask.js"></script>
+    <style>
+/* Загальні стилі */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Стилі для заголовків */
+h1, h2 {
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Стилі для меню */
+.menu {
+  display: flex;
+  list-style-type: none;
+  background-color: #333;
+  padding: 10px;
+  margin-top: 0;
+  justify-content: flex-end;
+}
+
+.menu-item {
+  margin-right: 20px;
+  position: relative;
+}
+
+.menu-item a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.menu-item a:hover {
+  background-color: #00a383;
+}
+
+.menu-item.active a {
+  background-color: #00b894;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.menu-item:hover .submenu {
+  display: block;
+}
+
+.submenu-item {
+  margin-bottom: 5px;
+}
+
+.submenu-item a {
+  color: #333;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+/* Стилі для форми */
+.form-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+}
+
+/* Стилі для розділів */
+.section {
+  margin-bottom: 0px;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+/* Стилі для полів вводу */
+.form-group {
+  margin-bottom: 10px;
+}
+
+.form-group label {
+  display: inline-block;
+  width: 200px;
+}
+
+.form-group input {
+  width: 250px;
+}
+
+.form-group select {
+  width: 250px;
+  padding: 1px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+
+/* Стилі для кнопки */
+.submit-button {
+  padding: 10px 20px;
+  background-color: #00b894;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.submit-button:hover {
+  background-color: #00a383;
+}
+
+.right-section-orders {
+  height: 30%;
+  padding: 20px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.left-section {
+  width: 50%;
+  height: 75%;
+  padding: 110px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 25px;
+}
+
+.right-section-additionally {
+  height: 70%;
+  padding: 20px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.right {
+  width: 36%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  display: flex;
+  height: 94vh;
+}
+
+.card {
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table th {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+td:nth-child(1) {
+  width: 2%;
+}
+
+td:nth-child(2) {
+  width: 88%;
+}
+
+td:nth-child(3) {
+  width: 10%;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="date"] {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #4CAF50;
+}
+
+/* Стилі для фільтрів */
+.filters {
+  display: flex;
+  align-items: center;
+  z-index:1;
+}
+
+.filter-label {
+  margin-right: 10px;
+  font-weight: bold;
+  z-index:1;
+}
+
+.filter-select {
+  margin-right: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  z-index:1;
+}
+
+.edit-button {
+      padding: 10px 20px;
+      background-color: #00b894;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+.edit-button:hover {
+      background-color: #00a383;
+}
+
+
+  </style>
+</head>
+<body>
+<div>
+    <ul class="menu">
+        <li class="menu-item"><a href="/" class="active">Головна</a></li>
+        <li class="menu-item">
+            <a href="#">Супровiд навчального процесу</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="/Training_plans">Навчальні плани</a></li>
+                <li class="submenu-item"><a href="/Successfulness">Успішність</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Внесення змін та переведення на курс</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="/View_and_edit_cards">Перегляд та правка карток</a></li>
+                <li class="submenu-item"><a href="/Entering_grades_from_the_sheet">Введення оцінок з відомості</a></li>
+                <li class="submenu-item"><a href="/View_debtors">Перегляд боржників</a></li>
+                <li class="submenu-item"><a href="/Transfer_to_the_course">Переведення на курс</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Перегляд та друк інформації</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="#">Список групи</a></li>
+                <li class="submenu-item"><a href="#">Відомості</a></li>
+                <li class="submenu-item"><a href="#">Виконання учбових планів</a></li>
+                <li class="submenu-item"><a href="#">Друк</a></li>
+                <li class="submenu-item"><a href="#">Зведена статистична відомість факультету</a></li>
+                <li class="submenu-item"><a href="#">Рейтинг студентів</a></li>
+                <li class="submenu-item"><a href="#">Бухгалтерія</a></li>
+                <li class="submenu-item"><a href="#">Перегляд додатку</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Модульний контроль</a>
+        </li>
+        <li class="menu-item">
+            <a href="#">Довідник</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="#">Довідник кафедри</a></li>
+                <li class="submenu-item"><a href="#">Довідник дисциплін</a></li>
+                <li class="submenu-item"><a href="#">Довідник спеціальностей</a></li>
+                <li class="submenu-item"><a href="#">Довідник факультетів</a></li>
+            </ul>
+        </li>
+        <li class="menu-item" style="margin-left: auto;"><a href="#">Вийти з аккаунту</a></li>
+    </ul>
+</div>
+<div class="filters" style="margin-left: 110px;">
+    <label for="group" class="filter-label">Група:</label>
+    <select name="Group" id="group" v-model="selectedGroup" class="filter-select">
+        <option value="">Всі</option>
+        <option th:each="el:${group}" th:value="${el}" th:text="${el}"></option>
+    </select>
+
+    <label for="session" class="filter-label">Сесія:</label>
+    <select id="session" v-model="selectedSession" class="filter-select">
+        <option value="1">Зимова</option>
+        <option value="2">Літня</option>
+    </select>
+</div>
+<div class="container" style="margin-top: -40px;">
+    <div class="left-section">
+
+        <h1 style="display: flex; justify-content: center;">Перегляд картки студента</h1>
+
+        <div class="section">
+            <h2 class="section-title">Особисті дані</h2>
+            <div class="form-group">
+                <label for="last-name">Призвище:</label>
+                <input type="text" id="last-name" required disabled>
+                <label for="last-name-eng" style="margin-left: 25px;">Призвище анг:</label>
+                <input type="text" id="last-name-eng" required>
+            </div>
+            <div class="form-group">
+                <label for="first-name">Ім'я:</label>
+                <input type="text" id="first-name" required>
+                <label for="first-name-eng" style="margin-left: 25px;">Ім'я анг:</label>
+                <input type="text" id="first-name-eng" required>
+            </div>
+            <div class="form-group">
+                <label for="middle-name">По батькові:</label>
+                <input type="text" id="middle-name" required>
+                <label for="birthday" style="margin-left: 25px;">Дата народження:</label>
+                <input type="date" id="birthday" required>
+            </div>
+            <div class="form-group">
+                <label for="district">Область:</label>
+                <select id="district" required>
+                    <option value="">Вкажіть область</option>
+                    <option value="1">АР Крим</option>
+                    <option value="2">Вінницька</option>
+                    <option value="3">Волинська</option>
+                    <option value="4">Дніпропетровська</option>
+                    <option value="5">Донецька</option>
+                    <option value="6">Житомирська</option>
+                    <option value="7">Закарпатська</option>
+                    <option value="8">Запорізька</option>
+                    <option value="9">Івано-Франківська</option>
+                    <option value="10">Київська</option>
+                    <option value="11">Кіровоградська</option>
+                    <option value="12">Луганська</option>
+                    <option value="13">Львівська</option>
+                    <option value="14">Миколаївська</option>
+                    <option value="15">Одеська</option>
+                    <option value="16">Полтавська</option>
+                    <option value="17">Рівненська</option>
+                    <option value="18">Сумська</option>
+                    <option value="19">Тернопільська</option>
+                    <option value="20">Харківська</option>
+                    <option value="21">Херсонська</option>
+                    <option value="22">Хмельницька</option>
+                    <option value="23">Черкаська</option>
+                    <option value="24">Чернівецька</option>
+                    <option value="25">Чернігівська</option>
+                </select>
+                <label for="home_address" style="margin-left: 25px;">Районна домашня адреса:</label>
+                <input type="text" id="home_address" required>
+            </div>
+        </div>
+        <div class="section">
+            <h2 class="section-title">Група студента</h2>
+            <div class="form-group">
+                <label for="specialty">Спеціальність:</label>
+                <select id="specialty" required>
+                    <option value="1">ІБК</option>
+                    <option value="2">КН</option>
+                </select>
+                <label for="course-number" style="margin-left: 25px;">Номер курсу:</label>
+                <input type="number" id="course-number" required>
+            </div>
+            <div class="form-group">
+                <label for="group-number">Номер групи:</label>
+                <input type="number" id="group-number" required>
+                <label for="year-of-entry" style="margin-left: 25px;">Рік вступу:</label>
+                <input type="text" id="year-of-entry" required>
+            </div>
+            <div class="form-group">
+                <label for="degree">Ступінь навчання:</label>
+                <select id="degree" required>
+                    <option value="1">Бакалаврат</option>
+                    <option value="2">Магістратура</option>
+                </select>
+                <label for="type-of-study" style="margin-left: 25px;">Форма навчання:</label>
+                <select id="type-of-study" required>
+                    <option value="1">Денна</option>
+                    <option value="2">Заочна</option>
+                </select>
+            </div>
+        </div>
+        <div class="section">
+            <h2 class="section-title">Паспортні дані</h2>
+            <div class="form-group">
+                <label for="document-number">Номер документу:</label>
+                <input type="text" id="document-number" required>
+                <label for="issuing-authority" style="margin-left: 25px;">Орган що видав документ:</label>
+                <input type="text" id="issuing-authority" required>
+            </div>
+            <div class="form-group">
+                <label for="date-of-issue">Дата видачі:</label>
+                <input type="date" id="date-of-issue" required>
+                <label for="valid-until" style="margin-left: 25px;">Дійсний до:</label>
+                <input type="date" id="valid-until" required>
+            </div>
+            <div class="form-group">
+                <label for="record-number">Номер запису:</label>
+                <input type="text" id="record-number" required>
+                <label for="identification-code" style="margin-left: 25px;">Ідентифікаційний код:</label>
+                <input type="text" id="identification-code" required>
+            </div>
+            <div class="form-group">
+                <label for="nationality">Національність:</label>
+                <select id="nationality" required>
+                    <option value="ukraine">Українська</option>
+                    <option value="foreign">Іноземна</option>
+                </select>
+                <label for="gender" style="margin-left: 25px;">Стать:</label>
+                <select id="gender" required>
+                    <option value="male">Чоловіча</option>
+                    <option value="female">Жіноча</option>
+                </select>
+            </div>
+        </div>
+        <div class="section">
+            <h2 class="section-title">Інші дані</h2>
+            <div class="form-group">
+                <label for="applicant's-card-number">Номер картки здобувача:</label>
+                <input type="text" id="applicant's-card-number">
+                <label for="cards-of-natural-persons" style="margin-left: 25px;">Номер договору:</label>
+                <input type="text" id="cards-of-natural-persons">
+            </div>
+            <div class="form-group">
+                <label for="number-of-the-record-book">Номер залікової книжки:</label>
+                <input type="text" id="number-of-the-record-book">
+                <label for="card-number-of-an-individual" style="margin-left: 25px;">Номер картки фіз. особи:</label>
+                <input type="text" id="card-number-of-an-individual">
+            </div>
+        </div>
+        <div class="section">
+            <h2 class="section-title">Контактна інформація</h2>
+            <div class="form-group">
+                <div id="app">
+                    <phone-number-input></phone-number-input>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="email">Електронна пошта:</label>
+                <input type="email" id="email" required>
+            </div>
+        </div>
+        <div style="display: flex;">
+            <button class="edit-button" id="edit-button" style="margin-right: 10px; margin-left:88%;">Редагувати</button>
+            <button class="submit-button" id="save-button">Зберегти</button>
+            <script>
+                var editButton = document.getElementById('edit-button');
+                var saveButton = document.getElementById('save-button');
+                var editableFields = document.querySelectorAll('.left-section input, .left-section select');
+
+                var isEditing = false;
+
+                // Функція для перевірки чи були змінені поля
+                function areFieldsChanged() {
+                  var changed = false;
+                  editableFields.forEach(function(field) {
+                    if (field.defaultValue !== field.value) {
+                      changed = true;
+                    }
+                  });
+                  return changed;
+                }
+
+                // Функція для вмикання/вимикання режиму редагування
+                function toggleEditMode() {
+                  isEditing = !isEditing;
+
+                  // Змінюємо стан полів для редагування
+                  editableFields.forEach(function(field) {
+                    field.disabled = !isEditing;
+                  });
+
+                  // Змінюємо колір кнопки редагування
+                  if (isEditing) {
+                    editButton.style.backgroundColor = '#ff7675';
+                  } else {
+                    editButton.style.backgroundColor = '#00b894';
+                  }
+
+                  // Відображаємо або ховаємо кнопку збереження
+                  if (isEditing && areFieldsChanged()) {
+                    saveButton.style.display = 'block';
+                  } else {
+                    saveButton.style.display = 'none';
+                  }
+                }
+
+                // Обробник події натиснення на кнопку редагування
+                editButton.addEventListener('click', function() {
+                  toggleEditMode();
+                });
+
+                // Обробник події натиснення на кнопку збереження
+                saveButton.addEventListener('click', function() {
+                  if (areFieldsChanged()) {
+                    // Виконуємо дії для збереження даних
+                    // Наприклад, відправка форми на сервер або збереження у локальному сховищі
+
+                    // Після збереження скидаємо стан редагування
+                    toggleEditMode();
+                  }
+                });
+              </script>
+        </div>
+
+    </div>
+    <div class="right">
+        <div class="right-section-orders" id="table_order">
+            <h1>Накази</h1>
+            <div class="card">
+                <table class="table">
+                    <tr>
+                        <th >№ наказу</th>
+                        <th style="text-align: center;">Стан</th>
+                        <th>Дата</th>
+                    </tr>
+                    <tr v-for="discipline in Discipline" :key="discipline.number">
+                        <td><input v-model="discipline.number" type="text" class="input-field" readonly></td>
+                        <td><input v-model="discipline.condition" style="width: 100%;" type="text" readonly></td>
+                        <td><input v-model="discipline.date_condition" type="date" readonly></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="right-section-additionally">
+            <h1>Додатково</h1>
+            <div class="section" style="margin-left: -200px;">
+                <h2 class="section-title">Попередня освіта</h2>
+                <div class="form-group">
+                    <label for="document">Тип документу: </label>
+                    <select id="document">
+                        <option value="">Виберіть тип документа</option>
+                        <option value="1">Атестат</option>
+                        <option value="2">Диплом молодшого спеціаліста</option>
+                        <option value="3">Диплом бакалавра</option>
+                        <option value="4">Диплом магістра</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="series-and-number">Серія та номер:</label>
+                    <input type="text" id="series-and-number" required>
+                </div>
+                <div class="form-group">
+                    <label for="date-of-issue-2">Дата видачі:</label>
+                    <input type="date" id="date-of-issue-2" required>
+                </div>
+                <div class="form-group">
+                    <label for="educational-institution">Назва навч. закладу:</label>
+                    <input type="text" id="educational-institution" required>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  Vue.component('phone-number-input', {
+    template: `
+      <div>
+        <label for="phone-number">Номер телефону:</label>
+        <input type="text" id="phone-number" v-bind:value="phoneNumber" v-on:input="updatePhoneNumber($event.target.value)" v-mask="'+###-##-###-##-##'" required>
+      </div>
+    `,
+    data() {
+      return {
+        phoneNumber: '',
+      };
+    },
+    methods: {
+      updatePhoneNumber(value) {
+        const phoneNumber = value.replace(/[^\d]/g, '');
+        const formattedPhoneNumber = this.formatPhoneNumber(phoneNumber);
+        this.phoneNumber = formattedPhoneNumber;
+      },
+      formatPhoneNumber(phoneNumber) {
+        if (phoneNumber.length === 12) {
+          // Значення phoneNumber вже відповідає очікуваній масці номера телефону
+          return phoneNumber;
+        }
+
+        let formattedPhoneNumber = phoneNumber;
+
+        if (phoneNumber.length > 0) {
+          formattedPhoneNumber = '+' + phoneNumber;
+        }
+
+        if (formattedPhoneNumber.length > 3 && formattedPhoneNumber[3] !== '+') {
+          formattedPhoneNumber = formattedPhoneNumber.slice(0, 3) + '-' + formattedPhoneNumber.slice(3);
+        }
+
+        if (formattedPhoneNumber.length > 6 && formattedPhoneNumber[6] !== '-') {
+          formattedPhoneNumber = formattedPhoneNumber.slice(0, 6) + '-' + formattedPhoneNumber.slice(6, 9) + '-' + formattedPhoneNumber.slice(9, 11) + '-' + formattedPhoneNumber.slice(11);
+        }
+
+        return formattedPhoneNumber;
+      },
+    },
+  });
+
+  new Vue({
+    el: '#app',
+  });
+  new Vue({
+        el: '#table_order',
+        data: {
+            Discipline: [
+                { number: 133, condition: 'Зарахований', date_condition: '11/22/2001'},
+                { number: 234, condition: 'Переведений', date_condition: ''},
+                { number: 345, condition: 'Переведений', date_condition: ''}
+            ],
+            newDiscipline: {
+                number: '',
+                condition: '',
+                date_condition: ''
+            },
+        },
+        methods: {
+            add_discipline() {
+                if (this.newDiscipline.title !== '' && this.newDiscipline.hours !== '') {
+                    this.Discipline.push({ ...this.newDiscipline
+                });
+                this.resetForm();
+              }
+            },
+            resetForm() {
+              this.newDiscipline = {
+                number: '',
+                condition: '',
+                date_condition: ''
+              };
+            },
+            delete_discipline(number) {
+                this.Discipline = this.Discipline.filter(discipline => discipline.number !== number);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Деканат-Перегляд боржників</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Стилі для заголовків */
+    h1, h2 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Стилі для меню */
+    .menu {
+        display: flex;
+        list-style-type: none;
+        background-color: #333;
+        padding: 10px;
+        margin-top: 0;
+        justify-content: flex-end;
+    }
+    .menu-item {
+        margin-right: 20px;
+        position: relative;
+    }
+    .menu-item a {
+        color: #fff;
+        text-decoration: none;
+        padding: 0px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+    .menu-item a:hover {
+        background-color: #00a383;
+    }
+    .menu-item.active a {
+        background-color: #00b894;
+    }
+    .submenu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 1;
+    }
+    .menu-item:hover .submenu {
+        display: block;
+    }
+    .submenu-item {
+        margin-bottom: 5px;
+    }
+    .submenu-item a {
+        color: #333;
+        text-decoration: none;
+        word-wrap: break-word;
+    }
+
+    .filters {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .filter-label {
+      margin-right: 10px;
+      font-weight: bold;
+    }
+
+    .filter-select {
+      margin-right: 20px;
+      padding: 5px 10px;
+      border-radius: 5px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-right: 10px;
+      margin-left: 10px;
+    }
+    th, td {
+      padding: 8px;
+<!--      text-align: left;-->
+      border-bottom: 1px solid #ddd;
+      border: 1px solid #ddd;
+      text-align: center;
+    }
+    tr:hover {background-color: #f5f5f5;}
+
+    .my_table{
+        display: flex;
+    }
+
+  </style>
+</head>
+<body>
+<div id="app">
+    <ul class="menu">
+        <li class="menu-item"><a href="/" class="active">Головна</a></li>
+        <li class="menu-item">
+            <a href="#">Супровiд навчального процесу</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="/Training_plans">Навчальні плани</a></li>
+                <li class="submenu-item"><a href="/Successfulness">Успішність</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Внесення змін та переведення на курс</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="/View_and_edit_cards">Перегляд та правка карток</a></li>
+                <li class="submenu-item"><a href="/Entering_grades_from_the_sheet">Введення оцінок з відомості</a></li>
+                <li class="submenu-item"><a href="/View_debtors">Перегляд боржників</a></li>
+                <li class="submenu-item"><a href="/Transfer_to_the_course">Переведення на курс</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Перегляд та друк інформації</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="#">Список групи</a></li>
+                <li class="submenu-item"><a href="#">Відомості</a></li>
+                <li class="submenu-item"><a href="#">Виконання учбових планів</a></li>
+                <li class="submenu-item"><a href="#">Друк</a></li>
+                <li class="submenu-item"><a href="#">Зведена статистична відомість факультету</a></li>
+                <li class="submenu-item"><a href="#">Рейтинг студентів</a></li>
+                <li class="submenu-item"><a href="#">Бухгалтерія</a></li>
+                <li class="submenu-item"><a href="#">Перегляд додатку</a></li>
+            </ul>
+        </li>
+        <li class="menu-item">
+            <a href="#">Модульний контроль</a>
+        </li>
+        <li class="menu-item">
+            <a href="#">Довідник</a>
+            <ul class="submenu">
+                <li class="submenu-item"><a href="#">Довідник кафедри</a></li>
+                <li class="submenu-item"><a href="#">Довідник дисциплін</a></li>
+                <li class="submenu-item"><a href="#">Довідник спеціальностей</a></li>
+                <li class="submenu-item"><a href="#">Довідник факультетів</a></li>
+            </ul>
+        </li>
+        <li class="menu-item" style="margin-left: auto;"><a href="#">Вийти з аккаунту</a></li>
+    </ul>
+</div>
+<div class="filters">
+    <label for="list1" class="filter-label">Факультет</label>
+    <select id="list1" class="filter-select">
+        <option value="item1">Пункт 1</option>
+        <option value="item2">Пункт 2</option>
+        <option value="item3">Пункт 3</option>
+    </select>
+
+    <label for="list2" class="filter-label">Курс</label>
+    <select id="list2" class="filter-select">
+        <option value="item1">Пункт 1</option>
+        <option value="item2">Пункт 2</option>
+        <option value="item3">Пункт 3</option>
+    </select>
+
+    <label for="list3" class="filter-label">Група</label>
+    <select id="list3" class="filter-select">
+        <option value="item1">Пункт 1</option>
+        <option value="item2">Пункт 2</option>
+        <option value="item3">Пункт 3</option>
+    </select>
+
+    <label for="list4" class="filter-label">Номер групи</label>
+    <select id="list4" class="filter-select">
+        <option value="item1">Пункт 1</option>
+        <option value="item2">Пункт 2</option>
+        <option value="item3">Пункт 3</option>
+    </select>
+</div>
+<div class="my_table">
+    <table>
+        <caption>Студенти що не можуть бути переведені</caption>
+        <thead>
+        <tr>
+            <th>Прізвище</th>
+            <th>Ім'я</th>
+            <th>По батькові</th>
+            <th>Рік курсу</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Прізвище 1</td>
+            <td>Ім'я 1</td>
+            <td>По батькові 1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>Прізвище 2</td>
+            <td>Ім'я 2</td>
+            <td>По батькові 2</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>Прізвище 3</td>
+            <td>Ім'я 3</td>
+            <td>По батькові 3</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>Прізвище 3</td>
+            <td>Ім'я 3</td>
+            <td>По батькові 3</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>Прізвище 3</td>
+            <td>Ім'я 3</td>
+            <td>По батькові 3</td>
+            <td>3</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table>
+        <caption>Перелік причин</caption>
+        <thead>
+        <tr>
+            <th>Причини</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Причина 1</td>
+        </tr>
+        <tr>
+            <td>Причина 2</td>
+        </tr>
+        <tr>
+            <td>Причина 3</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>

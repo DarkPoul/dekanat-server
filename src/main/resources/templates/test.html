@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ua">
+<!-- UIkit CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/css/uikit.min.css" />
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<!-- UIkit JS -->
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit-icons.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.16.24/dist/js/uikit-icons.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<head>
+    <title>Таблиця кафедр</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<style>
+
+    .hidden {
+        display: none;
+    }
+
+</style>
+
+<nav class="uk-navbar-container">
+    <div class="uk-container">
+        <div uk-navbar="mode: click">
+
+            <div class="uk-navbar-left">
+
+                <ul class="uk-navbar-nav">
+
+                    <li>
+                        <a href="#">Супровід навчального процесу</a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li class="uk-active"><a href="#">Навчальні плани</a></li>
+                                <li><a href="#">Успішність</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#">Внесення змін та переведення на курс</a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li class="uk-active"><a href="#">Навчальні плани</a></li>
+                                <li><a href="#">Успішність</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li>
+                        <a href="#">Перегляд та друк інформації</a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li class="uk-active"><a href="#">Навчальні плани</a></li>
+                                <li><a href="#">Успішність</a></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li><a href="#">Модульний контроль</a></li>
+
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+</nav>
+
+<div class="uk-card uk-card-default uk-card-body uk-width-5-6" style="width: 96%;margin-left: 2%;">
+    <div class="uk-margin uk-form-width-medium">
+        <select class="uk-select" aria-label="Select">
+            <option value="">Вибрати групу</option>
+            <option th:each="el:${groups}" th:value="${el.groupId}" th:text="${el.specialtyAbbreviation + '-' +
+            el.getCourseNumber() + '-' + el.getGroupNumber() + '-' + el.getAdmissionYear()}"></option>
+        </select>
+    </div>
+
+
+    <a id="plus-button" uk-icon="icon: plus-circle; ratio: 1.5" href="#modal-sections" uk-toggle></a>
+
+    <div id="modal-sections" uk-modal>
+        <div class="uk-modal-dialog">
+            <button class="uk-modal-close-default" type="button" uk-close></button>
+            <div class="uk-modal-header">
+                <h2 class="uk-modal-title">Додавання дисципліни до навчального плану</h2>
+            </div>
+            <div class="uk-modal-body">
+
+                <div class="uk-margin">
+                    <input class="uk-input uk-form-width-large" type="text" id="searchInput" name="searchInput"
+                           placeholder="Введіть назву дисципліни" aria-label="Input" list="optionsList">
+                    <datalist id="optionsList">
+                        <option th:each="el : ${disc}" th:value="${el.getDisciplineName()}"></option>
+                    </datalist>
+                </div>
+
+
+                <div class="uk-margin uk-grid-small uk-child-width-auto uk-grid">
+                    <label><input class="uk-checkbox" type="checkbox"> Вибіркова дисципліна</label>
+                </div>
+
+                <h3>Додати методи контролю</h3>
+
+                <a id="plus-button-type-control" uk-icon="icon: plus-circle; ratio: 1.5" uk-toggle></a>
+                <div id="submenu" class="hidden">
+
+                    <div class="uk-margin">
+                        <select class="uk-select" style="width: 17%;" aria-label="Select">
+                            <option>Залік</option>
+                            <option>Екзамен</option>
+                        </select>
+                        <input class="uk-input  uk-margin-small-left" style="width: 14%;" type="text" placeholder="Години" aria-label="Input">
+                        <div class="uk-text-center" uk-form-custom="target: > * > span:last-child" style="width: 65%;">
+                            <select aria-label="Custom controls">
+                                <option value="" selected>Оберіть кафедру</option>
+                                <option value="2">Кафедра автомобілів</option>
+                                <option value="3">Кафедра аеропортів</option>
+                                <option value="4">Кафедра інформаційно-аналітичної діяльності та інформаційної безпеки</option>
+                            </select>
+                            <span class="uk-link">
+                                <span uk-icon="icon: pencil"></span>
+                                <span></span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <a id="plus-button-type-control_2" uk-icon="icon: plus-circle; ratio: 1.5" uk-toggle></a>
+                <div id="submenu_2" class="hidden">
+
+                    <div class="uk-margin">
+                        <select class="uk-select" style="width: 17%;" aria-label="Select">
+                            <option>Д. Залік</option>
+                            <option>КП</option>
+                            <option>КР</option>
+                            <option>РГР</option>
+                            <option>РР</option>
+                        </select>
+
+                        <select class="uk-select uk-margin-small-left" style="width: 14%;" aria-label="Select">
+                            <option>2</option>
+                            <option>4</option>
+                            <option>6</option>
+                            <option>8</option>
+                        </select>
+
+                        <div class="uk-text-center" uk-form-custom="target: > * > span:last-child" style="width: 65%;">
+                            <select aria-label="Custom controls">
+                                <option value="" selected>Оберіть кафедру</option>
+                                <option value="2">Кафедра автомобілів</option>
+                                <option value="3">Кафедра аеропортів</option>
+                                <option value="4">Кафедра інформаційно-аналітичної діяльності та інформаційної безпеки</option>
+                            </select>
+                            <span class="uk-link">
+                                <span uk-icon="icon: pencil"></span>
+                                <span></span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Відміна</button>
+                <button class="uk-button uk-button-primary" type="button">Зберегти</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/add_discipline.js"></script>
+
+
+
+    <table class="uk-table uk-table-hover uk-table-divider uk-table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Дисципліна</th>
+            <th>Години</th>
+            <th>Екзамен</th>
+            <th>Залік</th>
+            <th>Д.залік</th>
+            <th>КП</th>
+            <th>КР</th>
+            <th>РГР</th>
+            <th>№ кафедри</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>1</td>
+            <td>Інформатика</td>
+            <td>90</td>
+            <td><label><input class="uk-checkbox" type="checkbox"></label></td>
+            <td><label><input class="uk-checkbox" type="checkbox"></label></td>
+            <td><label><input class="uk-checkbox" type="checkbox"></label></td>
+            <td><label><input class="uk-checkbox" type="checkbox"></label></td>
+            <td><label><input class="uk-checkbox" type="checkbox"></label></td>
+            <td><label><input class="uk-checkbox" type="checkbox"></label></td>
+            <td>
+
+                <div class="uk-margin">
+                    <input class="uk-input uk-form-width-xsmall" type="text" placeholder="№" aria-label="Input">
+                </div>
+
+            </td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+            <td>Table Data</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
+
+
+
+
+<script>
+
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:text= "${title}"></title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="@{/css/style.css}" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+</head>
+<body>
+<div class="menu">
+  <div class="title active_main"><h1><a href="/"><span>Д</span>ЕКАНАТ</a></h1></div>
+  <div class="list_menu">
+    <ul>
+      <li><a href="edu_curation">Супровiд навчального процесу<i class="fa-solid fa-file"></i></a></li>
+      <li><a href="view_and_edit_cards">Внесення змін та переведення на курс<i class="fa-solid fa-address-card"></i></a></li>
+      <li><a href="view_and_print">Перегляд та друк інформації<i class="fa-solid fa-file-export"></i></a></li>
+      <li><a href="modular_control">Модульний контроль<i class="fa-solid fa-address-book"></i></a></li>
+      <li><a href="directory">Довідник<i class="fa-solid fa-book"></i></a></li>
+      <li class="my_exit"><a href="logout">Вийти з аккаунту<i class="fa-solid fa-circle-xmark"></i></a></li>
+    </ul>
+  </div>
+</div>
+<div class="content">
+
+</div>
+<script src="https://kit.fontawesome.com/004c528d07.js" crossorigin="anonymous"></script>
+</body>
+</html>
