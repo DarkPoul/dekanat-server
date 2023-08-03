@@ -8,6 +8,9 @@ public class DekanatApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DekanatApplication.class, args);
+
 	}
+
+
 
 }

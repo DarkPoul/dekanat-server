@@ -1,0 +1,209 @@
+@startuml
+class com.esvarog.ua.Dekanat.model.table.Students_pass {
+- int id
+- Students_info id_of_student
+- String last_name_eng
+- String first_name_eng
+- Date birthdate
+- String series
+- String number
+- Date date_of_issue
+- Date date_of_end
+- String additional_number
+- String authority
+- String sex
++ int getId()
++ Students_info getId_of_student()
++ String getLast_name_eng()
++ String getFirst_name_eng()
++ Date getBirthdate()
++ String getSeries()
++ String getNumber()
++ Date getDate_of_issue()
++ Date getDate_of_end()
++ String getAdditional_number()
++ String getAuthority()
++ String getSex()
++ void setSex(String)
++ void setId_of_student(Students_info)
++ void setLast_name_eng(String)
++ void setFirst_name_eng(String)
++ void setBirthdate(Date)
++ void setSeries(String)
++ void setNumber(String)
++ void setDate_of_issue(Date)
++ void setDate_of_end(Date)
++ void setAdditional_number(String)
++ void setAuthority(String)
+}
+interface com.esvarog.ua.Dekanat.repository.Education_prog_repo {
+}
+class com.esvarog.ua.Dekanat.DekanatApplication {
++ {static} void main(String[])
+}
+class com.esvarog.ua.Dekanat.model.table.Students_docs {
+- int id
+- Students_info id_student
+- String id_physical_person
+- String card_number
+- String title_of_past_document
+- String series_of_past_document_on_education
+- String number_of_the_previous_education_document
+- String issued_a_past_document
+- String diploma_number
++ int getId()
++ Students_info getId_of_student()
++ String getId_physical_person()
++ String getCard_number()
++ String getTitle_of_past_document()
++ String getSeries_of_past_document_on_education()
++ String getNumber_of_the_previous_education_document()
++ String getIssued_a_past_document()
++ String getDiploma_number()
++ void setId_of_student(Students_info)
++ void setId_physical_person(String)
++ void setCard_number(String)
++ void setTitle_of_past_document(String)
++ void setSeries_of_past_document_on_education(String)
++ void setNumber_of_the_previous_education_document(String)
++ void setIssued_a_past_document(String)
++ void setDiploma_number(String)
+}
+interface com.esvarog.ua.Dekanat.repository.Student_docs_repo {
+}
+class com.esvarog.ua.Dekanat.controller.home.HomeController {
+- Blog_repo blogRepo
+- Student_info_repo studentInfoRepo
+- User_repo user_repo
++ String home(Model)
+- boolean isUserAdmin()
++ String entering_grades_from_information(Model)
++ String review_of_debtors(Model)
++ String transfer_to_the_course(Model)
++ String view_and_print(Model)
++ String modular_control(Model)
++ String directory(Model)
++ void create_user(Map<String,String>)
+}
+interface com.esvarog.ua.Dekanat.repository.Student_pass_repo {
+}
+interface com.esvarog.ua.Dekanat.repository.Student_info_repo {
+~ List<Students_info> findByEduProgram_ShortNameAndCourseAndNumberAndYear(String,String,String,String)
+~ List<Students_info> findDistinctById(int)
+~ List<Students_info> findById(int)
+}
+class com.esvarog.ua.Dekanat.model.table.Education_program {
+- int id
+- String full
+- String shortName
+- Set<Students_info> students
++ int getId()
++ String getFull()
++ String getShortName()
++ Set<Students_info> getStudents()
++ void setFull(String)
++ void setShortName(String)
++ void setStudents(Set<Students_info>)
+}
+class com.esvarog.ua.Dekanat.model.AllInfo {
+~ int id
+~ String last_name
+~ String last_name_eng
+~ Date birthday
+}
+interface com.esvarog.ua.Dekanat.repository.User_repo {
+}
+class com.esvarog.ua.Dekanat.controller.EduProgramController {
+- Education_prog_repo eduCurationRepository
+- Student_info_repo studentInfoRepo
++ String directory_faculty(Model)
+}
+class com.esvarog.ua.Dekanat.admin_panel.create_pass {
+}
+interface com.esvarog.ua.Dekanat.repository.Blog_repo {
+}
+class com.esvarog.ua.Dekanat.model.table.Students_info {
+- int id
+- String last_name
+- String first_name
+- String patronymic
+- Education_program eduProgram
+- String course
+- String number
+- String year
+- String formStudy
+- Set<Students_pass> stud_pass
+- Set<Students_docs> stud_docs
++ int getId()
++ String getLast_name()
++ String getFirst_name()
++ String getPatronymic()
++ Education_program getEduProgram()
++ String getCourse()
++ String getNumber()
++ String getYear()
++ String getFormStudy()
++ void setLast_name(String)
++ void setFirst_name(String)
++ void setPatronymic(String)
++ void setEduProgram(Education_program)
++ void setCourse(String)
++ void setNumber(String)
++ void setYear(String)
++ void setFormStudy(String)
+}
+class com.esvarog.ua.Dekanat.model.table.User {
+- int id
+- String username
+- String password
+- String enabled
++ int getId()
++ void setId(int)
++ String getUsername()
++ void setUsername(String)
++ String getPassword()
++ void setPassword(String)
++ String getEnabled()
++ void setEnabled(String)
+}
+class com.esvarog.ua.Dekanat.config.SecurityConfig {
+- DataSource dataSource
+# void configure(AuthenticationManagerBuilder)
++ PasswordEncoder passwordEncoder()
+# void configure(HttpSecurity)
+}
+class com.esvarog.ua.Dekanat.controller.ViewAndEditCardController {
+- Student_info_repo studentInfoRepo
+- Education_prog_repo educationProgRepo
+- JdbcTemplate jdbcTemplate
++ String making_changes(Model)
++ List<String> getInfoStudent(String)
++ String getData(int)
++ ObjectMapper objectMapper()
++ String getPass(int)
++ String getEdu()
+}
+class com.esvarog.ua.Dekanat.model.table.Blog {
+- int id
+- String title
+- String text
+- Date date
++ int getId()
++ void setId(int)
++ String getTitle()
++ void setTitle(String)
++ String getText()
++ void setText(String)
++ Date getDate()
++ void setDate(Date)
+}
+
+
+org.springframework.data.repository.CrudRepository <|-- com.esvarog.ua.Dekanat.repository.Education_prog_repo
+org.springframework.data.repository.CrudRepository <|-- com.esvarog.ua.Dekanat.repository.Student_docs_repo
+org.springframework.data.repository.CrudRepository <|-- com.esvarog.ua.Dekanat.repository.Student_pass_repo
+org.springframework.data.repository.CrudRepository <|-- com.esvarog.ua.Dekanat.repository.Student_info_repo
+org.springframework.data.repository.CrudRepository <|-- com.esvarog.ua.Dekanat.repository.User_repo
+org.springframework.data.repository.CrudRepository <|-- com.esvarog.ua.Dekanat.repository.Blog_repo
+org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter <|-- com.esvarog.ua.Dekanat.config.SecurityConfig
+@enduml
