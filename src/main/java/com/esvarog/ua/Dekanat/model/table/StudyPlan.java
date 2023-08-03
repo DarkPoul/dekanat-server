@@ -24,21 +24,19 @@ public class StudyPlan {
     private int hours;
 
     @ManyToOne
-    @JoinColumn(name = "control_method_id")
-    private ControlMethod controlMethod;
+    @JoinColumn(name = "first_method_control", referencedColumnName = "method_id")
+    private ControlMethod firstMethodControl;
 
-    @OneToMany(mappedBy = "studyPlan")
-    private List<Grade> grades;
+    @ManyToOne
+    @JoinColumn(name = "second_method_control", referencedColumnName = "method_id")
+    private ControlMethod secondMethodControl;
 
-    @ManyToMany
-    @JoinTable(name = "study_plan_control_methods",
-            joinColumns = @JoinColumn(name = "plan_id", referencedColumnName = "plan_id"),
-            inverseJoinColumns = @JoinColumn(name = "method_id", referencedColumnName = "method_id"))
-    private List<ControlMethod> controlMethods;
+    @ManyToOne
+    @JoinColumn(name = "student_id")
+    private Student student_id;
 
-    @Column(name = "plan_id", insertable = false, updatable = false)
-    @Index(name = "idx_plan_id")
-    private Long planIdIndex;
+
+
 
     public Long getPlanId() {
         return planId;
@@ -70,13 +68,5 @@ public class StudyPlan {
 
     public void setHours(int hours) {
         this.hours = hours;
-    }
-
-    public List<Grade> getGrades() {
-        return grades;
-    }
-
-    public void setGrades(List<Grade> grades) {
-        this.grades = grades;
     }
 }

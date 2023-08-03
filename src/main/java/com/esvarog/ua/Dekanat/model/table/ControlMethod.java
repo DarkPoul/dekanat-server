@@ -14,8 +14,7 @@ public class ControlMethod {
     @Column(name = "method_name")
     private String methodName;
 
-    @ManyToMany(mappedBy = "controlMethods")
-    private List<StudyPlan> studyPlans;
+
 
     // Геттери та сеттери
 
@@ -35,11 +34,4 @@ public class ControlMethod {
         this.methodName = methodName;
     }
 
-    public List<StudyPlan> getStudyPlans() {
-        return studyPlans;
-    }
-
-    public void setStudyPlans(List<StudyPlan> studyPlans) {
-        this.studyPlans = studyPlans;
-    }
 }

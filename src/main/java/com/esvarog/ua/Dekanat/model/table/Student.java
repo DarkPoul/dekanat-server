@@ -59,10 +59,6 @@ public class Student {
     private StudentGroup group;
 
     @ManyToOne
-    @JoinColumn(name = "plan_id")
-    private StudyPlan studyPlan;
-
-    @ManyToOne
     @JoinColumn(name = "passport_id")
     private Passport passport;
 
@@ -201,14 +197,6 @@ public class Student {
 
     public void setGroup(StudentGroup group) {
         this.group = group;
-    }
-
-    public StudyPlan getStudyPlan() {
-        return studyPlan;
-    }
-
-    public void setStudyPlan(StudyPlan studyPlan) {
-        this.studyPlan = studyPlan;
     }
 
     public Passport getPassport() {
