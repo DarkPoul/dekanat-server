@@ -1,0 +1,16 @@
+security:
+  jwt:
+    secret-key: qwerty
+
+
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  datasource:
+    password: ${MYSQL_PASSWORD}
+    url: jdbc:mysql://${MYSQL_HOST}:${MYSQL_PORT}/${MYSQL_DB}
+    username: ${MYSQL_USER}
+  jpa:
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
