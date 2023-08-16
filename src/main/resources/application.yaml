@@ -1,8 +1,3 @@
-security:
-  jwt:
-    secret-key: qwerty
-
-
 spring:
   config:
     import: optional:file:.env[.properties]
@@ -14,3 +9,7 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+security:
+  jwt:
+    secret-key: ${JWT_SECRET_KEY}
