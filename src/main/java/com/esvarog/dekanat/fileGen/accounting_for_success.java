@@ -135,7 +135,7 @@ public class accounting_for_success {
                 Наказ Міністерства освіти і науки \s
                 України 05 липня 2016 року №782""", small); //TODO дата повинна братися під час створення документу
         paragraph1.setAlignment(Element.ALIGN_RIGHT);
-        addEmptyLine(paragraph1, 1);
+        addEmptyLine(paragraph1);
         document.add(paragraph1);
 
 
@@ -183,7 +183,7 @@ public class accounting_for_success {
 
         Paragraph paragraph9 = new Paragraph(global_param.YEAR_OF_STUDY + " навчальний рік", medium);
         paragraph9.setAlignment(Element.ALIGN_CENTER);
-        addEmptyLine(paragraph9, 1);
+        addEmptyLine(paragraph9);
         document.add(paragraph9);
 
 
@@ -194,7 +194,7 @@ public class accounting_for_success {
 
         Paragraph paragraph11 = new Paragraph("\"_____\"____________________" + getYear(sem) + "р", medium);//TODO зміна року
         paragraph11.setAlignment(Element.ALIGN_CENTER);
-        addEmptyLine(paragraph11, 1);
+        addEmptyLine(paragraph11);
         document.add(paragraph11);
 
 
@@ -209,11 +209,11 @@ public class accounting_for_success {
 
 
         Paragraph paragraph14 = new Paragraph("за   ____________________   навчальний семестр.", medium);
-        addEmptyLine(paragraph14, 1);
+        addEmptyLine(paragraph14);
         document.add(paragraph14);
 
         Paragraph paragraph15 = new Paragraph("Форма семестрового контролю   ____________________            Загальна кількість годин   __________", medium);
-        addEmptyLine(paragraph15, 1);
+        addEmptyLine(paragraph15);
         document.add(paragraph15);
 
 
@@ -248,7 +248,7 @@ public class accounting_for_success {
 
         Paragraph paragraph20 = new Paragraph("Підсумки складання екзамену (заліку)", mediumBold);
         paragraph20.setAlignment(Element.ALIGN_CENTER);
-        addEmptyLine(paragraph20, 1);
+        addEmptyLine(paragraph20);
         document.add(paragraph20);
 
         PdfPTable table3 = getPdfPTable3();
@@ -423,8 +423,8 @@ public class accounting_for_success {
 
 
 
-    private static void addEmptyLine(Paragraph paragraph, int number) {
-        for (int i = 0; i < number; i++) {
+    private static void addEmptyLine(Paragraph paragraph) {
+        for (int i = 0; i < 1; i++) {
             paragraph.add(new Paragraph(" "));
         }
     }
