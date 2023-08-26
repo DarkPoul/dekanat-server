@@ -20,7 +20,7 @@ public class accounting_for_success {
 
 
 
-
+//todo Розробити систему регулювання тексту по ширині, з умовою зміни його ширини
 
 
     public static void pdfGen(String titleFaculty, String titleSpeciality, String edu_program, String courseNumber,
