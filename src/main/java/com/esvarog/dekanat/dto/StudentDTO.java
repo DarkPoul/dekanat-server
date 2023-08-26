@@ -1,6 +1,7 @@
 package com.esvarog.dekanat.dto;
 
 import com.esvarog.dekanat.entity.Districts;
+import com.esvarog.dekanat.entity.Passport;
 import com.esvarog.dekanat.entity.PreviousEducation;
 import com.esvarog.dekanat.entity.StudentGroup;
 import lombok.Data;
@@ -25,8 +26,7 @@ public class StudentDTO {
     private String card_number_of_an_individual;
     private PreviousEducation previousEducation;
     private StudentGroup group;
-
-//    private Passport passport;
+    private Passport passport;
 //
 //    private DiplomaInfo diplomaInfo;
 //    private List<Orders> orders;

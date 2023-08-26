@@ -16,6 +16,7 @@ public class StudentService {
     private final DistrictService districtService;
     private final PreEduService preEduService;
     private final GroupService groupService;
+    private final PassportService passService;
 
     public Student create(StudentDTO dto){
         return studentRepo.save(Student.builder()
@@ -39,6 +40,7 @@ public class StudentService {
                             dto.getPreviousEducation().getSerialOfDocument(),
                             dto.getPreviousEducation().getTypeOfDocument()))
                 .group(groupService.reedById(dto.getGroup().getId()))
+                .passport(passService.reed(dto.getPassport().getId()))
 
 
 //              private Passport passport;

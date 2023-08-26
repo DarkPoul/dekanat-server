@@ -44,8 +44,12 @@ public class Student {
     @JoinColumn(name = "IdGroup")
     private StudentGroup group;
 
-//    private Passport passport;
-//    private PreviousEducation previousEducation;
-//    private DiplomaInfo diplomaInfo;
+    @OneToOne
+    @JoinColumn(name = "IdPassport")
+    private Passport passport;
+
+    @OneToOne
+    @JoinColumn(name = "IdDiploma")
+    private Diploma diploma;
 //    private List<Orders> orders;
 }
