@@ -33,7 +33,7 @@ public class WebSecurityConfig {
                 .and().formLogin().disable()
                 .securityMatcher("/**")
                 .authorizeHttpRequests(registry -> registry
-                        .requestMatchers("/").permitAll()
+//                        .requestMatchers("/").permitAll()
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
