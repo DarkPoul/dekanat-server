@@ -22,6 +22,7 @@ public class AuthService {
                 new UsernamePasswordAuthenticationToken(username, password)
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
         var principal = (UserPrincipal) authentication.getPrincipal();
         System.out.println(principal.getAuthorities());
 
