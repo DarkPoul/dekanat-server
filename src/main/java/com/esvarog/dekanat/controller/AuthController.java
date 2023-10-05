@@ -16,7 +16,6 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @CrossOrigin
     @PostMapping("/auth/login")
     public LoginResponse login(@RequestBody @Validated LoginRequest request){
         System.out.println(request.getUsername() + " " + request.getPassword());
