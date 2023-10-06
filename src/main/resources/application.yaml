@@ -12,7 +12,6 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-
-security:
-  jwt:
-    secret-key: ${JWT_SECRET_KEY}
+api:
+  endpoint:
+    base-url: /api

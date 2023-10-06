@@ -17,27 +17,27 @@ import java.util.List;
 public class DiplomaController {
     private final DiplomaService diplomaService;
 
-    @PostMapping("/diploma/create")
+    @PostMapping("/api/diploma/create")
     public ResponseEntity<Diploma> create(@RequestBody DiplomaDTO dto){
         return new ResponseEntity<>(diplomaService.create(dto), HttpStatus.OK);
     }
 
-    @GetMapping("/diploma/reed")
+    @GetMapping("/api/diploma/reed")
     public ResponseEntity<List<Diploma>> reed(){
         return new ResponseEntity<>(diplomaService.reed(), HttpStatus.OK);
     }
 
-    @GetMapping("/diploma/reed/{id}")
+    @GetMapping("/api/diploma/reed/{id}")
     public ResponseEntity<Diploma> reed(@PathVariable Long id){
         return new ResponseEntity<>(diplomaService.reed(id), HttpStatus.OK);
     }
 
-    @PutMapping("/diploma/update")
+    @PutMapping("/api/diploma/update")
     public ResponseEntity<Diploma> update(@RequestBody Diploma diploma) {
         return new ResponseEntity<>(diplomaService.update(diploma), HttpStatus.OK);
     }
 
-    @DeleteMapping("/diploma/delete/{id}")
+    @DeleteMapping("/api/diploma/delete/{id}")
     public HttpStatus delete(@PathVariable Long id){
         diplomaService.delete(id);
         return HttpStatus.OK;

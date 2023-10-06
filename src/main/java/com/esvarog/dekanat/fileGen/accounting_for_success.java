@@ -1,6 +1,6 @@
 package com.esvarog.dekanat.fileGen;
 
-import com.esvarog.dekanat.security.global_param;
+//import com.esvarog.dekanat.security.global_param;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.pdf.*;
@@ -114,19 +114,19 @@ public class accounting_for_success {
         canvas.endText();
     }
 
-    private static String getYear(String sem){
-            String YEAR = "";
-            if (sem.equals("1") || sem.equals("3")){
-                YEAR = global_param.YEAR_OF_STUDY.split("/")[0];
-            }
-            if (sem.equals("2") || sem.equals("4")){
-                YEAR = global_param.YEAR_OF_STUDY.split("/")[1];
-            }
-            else {
-                System.out.println("Семестр не знайдений");
-            }
-        return YEAR;
-    }
+//    private static String getYear(String sem){
+//            String YEAR = "";
+//            if (sem.equals("1") || sem.equals("3")){
+//                YEAR = global_param.YEAR_OF_STUDY.split("/")[0];
+//            }
+//            if (sem.equals("2") || sem.equals("4")){
+//                YEAR = global_param.YEAR_OF_STUDY.split("/")[1];
+//            }
+//            else {
+//                System.out.println("Семестр не знайдений");
+//            }
+//        return YEAR;
+//    }
 
     private static void addTitlePage(Document document, String sem) throws DocumentException, FileNotFoundException {
         LineSeparator lineSeparator = new LineSeparator();
@@ -181,10 +181,10 @@ public class accounting_for_success {
         Paragraph paragraph8 = new Paragraph("Курс     ______________", medium);
         document.add(paragraph8);
 
-        Paragraph paragraph9 = new Paragraph(global_param.YEAR_OF_STUDY + " навчальний рік", medium);
-        paragraph9.setAlignment(Element.ALIGN_CENTER);
-        addEmptyLine(paragraph9);
-        document.add(paragraph9);
+//        Paragraph paragraph9 = new Paragraph(global_param.YEAR_OF_STUDY + " навчальний рік", medium);
+//        paragraph9.setAlignment(Element.ALIGN_CENTER);
+//        addEmptyLine(paragraph9);
+//        document.add(paragraph9);
 
 
         Paragraph paragraph10 = new Paragraph("ВІДОМІСТЬ ОБЛІКУ УСПІШНОСТІ № ___________", mediumBold);
@@ -192,10 +192,10 @@ public class accounting_for_success {
         document.add(paragraph10);
 
 
-        Paragraph paragraph11 = new Paragraph("\"_____\"____________________" + getYear(sem) + "р", medium);//TODO зміна року
-        paragraph11.setAlignment(Element.ALIGN_CENTER);
-        addEmptyLine(paragraph11);
-        document.add(paragraph11);
+//        Paragraph paragraph11 = new Paragraph("\"_____\"____________________" + getYear(sem) + "р", medium);//TODO зміна року
+//        paragraph11.setAlignment(Element.ALIGN_CENTER);
+//        addEmptyLine(paragraph11);
+//        document.add(paragraph11);
 
 
         Paragraph paragraph12 = new Paragraph("з", medium);

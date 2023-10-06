@@ -2,7 +2,7 @@ package com.esvarog.dekanat.controller;
 
 import com.esvarog.dekanat.dto.UserDTO;
 import com.esvarog.dekanat.entity.Users;
-import com.esvarog.dekanat.service.UserInBaseService;
+import com.esvarog.dekanat.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,26 +13,21 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 public class UserController {
-    private final UserInBaseService userInBaseService;
+    private final UserService userService;
 
-    @PostMapping("/user/create")
+    @PostMapping("/api/user/create")
     public ResponseEntity<Users> create(@RequestBody UserDTO dto){
-        return new ResponseEntity<>(userInBaseService.create(dto), HttpStatus.OK);
+        return new ResponseEntity<>(userService.create(new Users(
+                userService.userRepo.count() + 1L,
+                dto.getUsername(),
+                dto.getPassword(),
+                dto.isEnabled(),
+                dto.getRole()
+        )), HttpStatus.OK);
     }
 
-    @GetMapping("/user/reedAll")
+    @GetMapping("/api/user/reedAll")
     public ResponseEntity<List<Users>> reedAll() {
-        return new ResponseEntity<>(userInBaseService.readAll(), HttpStatus.OK);
-    }
-
-    @PutMapping("/user/update")
-    public ResponseEntity<Users> update(@RequestBody Users users) {
-        return new ResponseEntity<>(userInBaseService.update(users), HttpStatus.OK);
-    }
-
-    @DeleteMapping("/user/delete/{id}")
-    public HttpStatus delete(@PathVariable Long id) {
-        userInBaseService.delete(id);
-        return HttpStatus.OK;
+        return new ResponseEntity<>(userService.reedAll(), HttpStatus.OK);
     }
 }

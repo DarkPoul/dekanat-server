@@ -15,7 +15,7 @@ import java.util.List;
 public class DistrictController {
     private final DistrictService districtService;
 
-    @GetMapping("/district/reedAll")
+    @GetMapping("/api/district/reedAll")
     public ResponseEntity<List<Districts>> reedAll(){
         return new ResponseEntity<>(districtService.reedAll(), HttpStatus.OK);
     }
