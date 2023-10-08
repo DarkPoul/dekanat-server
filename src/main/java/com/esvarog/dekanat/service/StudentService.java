@@ -1,72 +1,57 @@
 package com.esvarog.dekanat.service;
 
 import com.esvarog.dekanat.dto.StudentDTO;
-import com.esvarog.dekanat.entity.Districts;
 import com.esvarog.dekanat.entity.Student;
 import com.esvarog.dekanat.repository.StudentRepo;
-import lombok.AllArgsConstructor;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
+@Transactional
 public class StudentService {
+
     private final StudentRepo studentRepo;
-    private final DistrictService districtService;
-    private final PreEduService preEduService;
-    private final GroupService groupService;
-    private final PassportService passService;
 
-    public Student create(StudentDTO dto){
-        return studentRepo.save(Student.builder()
-                .firstName(dto.getFirstName())
-                .firstNameEng(dto.getFirstName_eng())
-                .lastName(dto.getLastName())
-                .lastNameEng(dto.getLastName_eng())
-                .surName(dto.getSurName())
-                .dateOfBirth(dto.getDateOfBirth())
-                .address(dto.getAddress())
-                .districts(districtService.readById(dto.getDistrict().getId()))
-                .email(dto.getEmail())
-                .phoneNumber(dto.getPhoneNumber())
-                .applicantCardNumber(dto.getApplicant_card_number())
-                .numberOfTheRecordBook(dto.getNumber_of_the_record_book())
-                .contractNumber(dto.getContract_number())
-                .cardNumberOfAnIndividual(dto.getCard_number_of_an_individual())
-                .previousEducation(preEduService.reedByIdOrCreate(dto.getPreviousEducation().getId(),
-                        dto.getPreviousEducation().getDateOfGraduation().toString(),
-                            dto.getPreviousEducation().getSchoolName(),
-                            dto.getPreviousEducation().getSerialOfDocument(),
-                            dto.getPreviousEducation().getTypeOfDocument()))
-                .group(groupService.reedById(dto.getGroup().getId()))
-                .passport(passService.reed(dto.getPassport().getId()))
-
-
-//              private Passport passport;
-//              private DiplomaInfo diplomaInfo;
-//              private List<Orders> orders;
-                .build());
-    }
-    public List<Student> reedAll(){
-        return studentRepo.findAll();
+    public StudentService(StudentRepo studentRepo) {
+        this.studentRepo = studentRepo;
     }
 
-    public Student reedById(Long id){
-        return studentRepo.findById(id).orElseThrow(() ->
-                new RuntimeException("Student not found - " + id));
+    public Student findById(String id) {
+        return this.studentRepo.findById(id).orElseThrow();
     }
 
-    public Student update(Student student) {
-        return studentRepo.save(student);
+    public List<Student> findAll() {
+        return this.studentRepo.findAll();
     }
 
-    public void delete(Long id) {
-        studentRepo.deleteById(id);
+    public Student save(Student newStudent) {
+        newStudent.setId(this.studentRepo.count() + 1);
+        return this.studentRepo.save(newStudent);
     }
 
-    public List<Student> readByDistrictId(Districts districts) {
-        return studentRepo.findByDistrictsId(districts);
+    public Student update(String studentId, Student update){
+        return this.studentRepo.findById(studentId)
+                .map(oldStudent -> {
+                    oldStudent.setFirstName(update.getFirstName());
+                    oldStudent.setLastName(update.getLastName());
+                    oldStudent.setSurName(update.getSurName());
+                    oldStudent.setDateOfBirth(update.getDateOfBirth());
+                    oldStudent.setFirstNameEng(update.getFirstNameEng());
+                    oldStudent.setLastNameEng(update.getLastNameEng());
+                    oldStudent.setAddress(update.getAddress());
+                    oldStudent.setEmail(update.getEmail());
+                    oldStudent.setPhoneNumber(update.getPhoneNumber());
+                    return this.studentRepo.save(oldStudent);
+        }).orElseThrow();
+    }
+
+    public void delete(String id) {
+        this.studentRepo.findById(id).orElseThrow();
+        this.studentRepo.deleteById(id);
+
     }
 
 

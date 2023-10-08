@@ -9,9 +9,10 @@ spring:
     hibernate:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#      ddl-auto: create
+    show-sql: true
+  flyway:
+    enabled: true
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-api:
-  endpoint:
-    base-url: /api

@@ -6,7 +6,6 @@ import com.nimbusds.jose.jwk.RSAKey;
 import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
 import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -38,9 +37,6 @@ public class SecurityConfiguration {
     private final RSAPublicKey publicKey;
     private final RSAPrivateKey privateKey;
 
-    @Value("${api.endpoint.base-url}")
-    private String baseUrl;
-
 
     public SecurityConfiguration() throws NoSuchAlgorithmException {
         KeyPairGenerator keyPairGenerator = KeyPairGenerator.getInstance("RSA");
@@ -54,10 +50,11 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers(HttpMethod.GET, this.baseUrl + "/curricula/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, this.baseUrl + "/district/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, this.baseUrl + "/users/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, this.baseUrl + "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/curricula/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/district/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/users/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/student/**").authenticated()
 
                         .anyRequest().authenticated()
                 )

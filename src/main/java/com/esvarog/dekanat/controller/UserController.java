@@ -15,7 +15,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/api/user/create")
+    @PostMapping("/user/create")
     public ResponseEntity<Users> create(@RequestBody UserDTO dto){
         return new ResponseEntity<>(userService.create(new Users(
                 userService.userRepo.count() + 1L,
@@ -26,7 +26,7 @@ public class UserController {
         )), HttpStatus.OK);
     }
 
-    @GetMapping("/api/user/reedAll")
+    @GetMapping("/user/reedAll")
     public ResponseEntity<List<Users>> reedAll() {
         return new ResponseEntity<>(userService.reedAll(), HttpStatus.OK);
     }

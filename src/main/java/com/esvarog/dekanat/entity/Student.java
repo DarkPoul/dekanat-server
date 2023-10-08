@@ -17,39 +17,28 @@ public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String firstName;
-    private String firstNameEng;
     private String lastName;
-    private String lastNameEng;
     private String surName;
     private Date dateOfBirth;
+
+    private String firstNameEng;
+    private String lastNameEng;
+
+    // private String group;
+
+    // private String passport;
+
+	// private String districts;
     private String address;
-
-    @ManyToOne
-    @JoinColumn(name = "idDistrict")
-    private Districts districts;
-
     private String email;
     private String phoneNumber;
-    private String applicantCardNumber;
-    private String numberOfTheRecordBook;
-    private String contractNumber;
-    private String cardNumberOfAnIndividual;
-
-    @OneToOne
-    @JoinColumn(name = "IdPreviousEducation")
-    private PreviousEducation previousEducation;
-
-    @ManyToOne
-    @JoinColumn(name = "IdGroup")
-    private StudentGroup group;
-
-    @OneToOne
-    @JoinColumn(name = "IdPassport")
-    private Passport passport;
-
-    @OneToOne
-    @JoinColumn(name = "IdDiploma")
-    private Diploma diploma;
-//    private List<Orders> orders;
+ //    private String numberOfTheRecordBook;
+ //    private String contractNumber;
+ //    private String applicantCardNumber;
+ //    private String cardNumberOfAnIndividual;
+    
+ //    private String previousEducation;
+ //    private String diploma;
 }

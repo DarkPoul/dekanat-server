@@ -1,16 +1,14 @@
-package com.esvarog.dekanat.security;
+package com.esvarog.dekanat.controller;
 
-
-import org.springframework.http.HttpStatus;
+import com.esvarog.dekanat.service.AuthService;
+import com.esvarog.dekanat.entity.Result;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 
 @RestController
-@RequestMapping("${api.endpoint.base-url}/users")
 public class AuthController {
 
     private final AuthService authService;

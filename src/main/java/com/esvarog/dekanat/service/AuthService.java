@@ -1,10 +1,10 @@
-package com.esvarog.dekanat.security;
+package com.esvarog.dekanat.service;
 
-import com.esvarog.dekanat.controller.converter.UserDTOToUserConverter;
-import com.esvarog.dekanat.controller.converter.UserToUserDtoConverter;
+import com.esvarog.dekanat.converter.UserToUserDtoConverter;
 import com.esvarog.dekanat.dto.MyUserPrincipal;
 import com.esvarog.dekanat.dto.UserDTO;
 import com.esvarog.dekanat.entity.Users;
+import com.esvarog.dekanat.security.JwtProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
