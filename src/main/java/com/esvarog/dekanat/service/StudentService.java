@@ -1,12 +1,10 @@
 package com.esvarog.dekanat.service;
 
-import com.esvarog.dekanat.dto.StudentDTO;
 import com.esvarog.dekanat.entity.Student;
 import com.esvarog.dekanat.repository.StudentRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 @Service

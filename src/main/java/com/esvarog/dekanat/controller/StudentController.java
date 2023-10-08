@@ -8,6 +8,7 @@ import com.esvarog.dekanat.entity.Student;
 import com.esvarog.dekanat.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
 import java.util.List;
 
 @RestController
@@ -56,5 +57,38 @@ public class StudentController {
     public Result deleteStudent(@PathVariable String id) {
         this.studentService.delete(id);
         return new Result(true, 200, "success delete user");
+    }
+
+    @GetMapping(path = "/student/add_test")
+    public Result addTestStudent(){
+        Student student = new Student();
+        student.setId(1L);
+        student.setFirstName("Іван");
+        student.setLastName("Іванов");
+        student.setSurName("Іванович");
+        student.setDateOfBirth(Date.valueOf("2000-11-11"));
+        student.setFirstNameEng("Ivan");
+        student.setLastNameEng("Ivanov");
+        student.setAddress("вул. Іванова, 1");
+        student.setEmail("test1@test.com");
+        student.setPhoneNumber("+380000000000");
+        Student savedStudent = this.studentService.save(student);
+        StudentDTO studentDTO = this.studentToStudentDtoConverter.convert(savedStudent);
+        Student student2 = new Student();
+        student2.setId(2L);
+        student2.setFirstName("Петро");
+        student2.setLastName("Петров");
+        student2.setSurName("Петрович");
+        student2.setDateOfBirth(Date.valueOf("2000-11-11"));
+        student2.setFirstNameEng("Petro");
+        student2.setLastNameEng("Petrov");
+        student2.setAddress("вул. Петрова, 1");
+        student2.setEmail("test@test.com");
+        student2.setPhoneNumber("+380000000000");
+        Student savedStudent2 = this.studentService.save(student2);
+        StudentDTO studentDTO2 = this.studentToStudentDtoConverter.convert(savedStudent2);
+
+
+        return new Result(true, 200, "success add user", List.of(studentDTO, studentDTO2));
     }
 }

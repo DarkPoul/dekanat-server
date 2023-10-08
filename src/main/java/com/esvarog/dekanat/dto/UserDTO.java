@@ -2,6 +2,8 @@ package com.esvarog.dekanat.dto;
 
 import lombok.Data;
 
+
+
 @Data
 public class UserDTO {
     private Long id;
