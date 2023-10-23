@@ -6,22 +6,28 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Data
-@Builder
-@NoArgsConstructor
+@Getter
+@Setter
 @Transactional
 @AllArgsConstructor
-public class Users {
+public class Discipline {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String username;
-    private String password;
-    private boolean enabled;
-    private String role;
+    private Integer id;
+    private String title;
+    private String titleEng;
+
+    public Discipline() {
+    }
+
+    public Discipline(String title, String titleEng) {
+        this.title = title;
+        this.titleEng = titleEng;
+    }
 }

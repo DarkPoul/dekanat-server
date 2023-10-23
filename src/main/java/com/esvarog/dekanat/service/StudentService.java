@@ -26,7 +26,7 @@ public class StudentService {
     }
 
     public Student save(Student newStudent) {
-        newStudent.setId(this.studentRepo.count() + 1);
+        newStudent.setId((int) (this.studentRepo.count() + 1));
         return this.studentRepo.save(newStudent);
     }
 
@@ -34,14 +34,24 @@ public class StudentService {
         return this.studentRepo.findById(studentId)
                 .map(oldStudent -> {
                     oldStudent.setFirstName(update.getFirstName());
+                    oldStudent.setSurname(update.getSurname());
                     oldStudent.setLastName(update.getLastName());
-                    oldStudent.setSurName(update.getSurName());
-                    oldStudent.setDateOfBirth(update.getDateOfBirth());
+
                     oldStudent.setFirstNameEng(update.getFirstNameEng());
                     oldStudent.setLastNameEng(update.getLastNameEng());
-                    oldStudent.setAddress(update.getAddress());
+
+                    oldStudent.setApplicantCardNumber(update.getApplicantCardNumber());
+                    oldStudent.setNumberOfTheRecordBook(update.getNumberOfTheRecordBook());
+                    oldStudent.setContractNumber(update.getContractNumber());
+                    oldStudent.setCardNumberOfTheIndividual(update.getCardNumberOfTheIndividual());
+
+                    oldStudent.setPassData(update.getPassData());
+                    oldStudent.setPriorEducation(update.getPriorEducation());
+                    oldStudent.setOrderStudent(update.getOrderStudent());
+
                     oldStudent.setEmail(update.getEmail());
                     oldStudent.setPhoneNumber(update.getPhoneNumber());
+
                     return this.studentRepo.save(oldStudent);
         }).orElseThrow();
     }
@@ -53,4 +63,7 @@ public class StudentService {
     }
 
 
+    public Integer count() {
+        return (int) this.studentRepo.count();
+    }
 }

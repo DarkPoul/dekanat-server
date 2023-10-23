@@ -1,45 +1,53 @@
 package com.esvarog.dekanat.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.sql.Date;
-
+import java.util.List;
 
 @Entity
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private Integer id;
+    @Column(name = "first_name")
     private String firstName;
+    private String surname;
+    @Column(name = "last_name")
     private String lastName;
-    private String surName;
-    private Date dateOfBirth;
-
+    @Column(name = "first_name_eng")
     private String firstNameEng;
+    @Column(name = "last_name_eng")
     private String lastNameEng;
-
-    // private String group;
-
-    // private String passport;
-
-	// private String districts;
-    private String address;
-    private String email;
+    @Column(name = "applicant_card_number")
+    private String applicantCardNumber;
+    @Column(name = "number_of_the_record_book")
+    private String numberOfTheRecordBook;
+    @Column(name = "contract_number")
+    private String contractNumber;
+    @Column(name = "card_number_of_the_individual")
+    private String cardNumberOfTheIndividual;
+    @Column(name = "phone_number")
     private String phoneNumber;
- //    private String numberOfTheRecordBook;
- //    private String contractNumber;
- //    private String applicantCardNumber;
- //    private String cardNumberOfAnIndividual;
-    
- //    private String previousEducation;
- //    private String diploma;
+    private String email;
+
+    @ManyToOne
+    @JoinColumn(name = "pass_data_id")
+    private PassData passData;
+
+    @ManyToOne
+    @JoinColumn(name = "prior_education_id")
+    private PriorEducation priorEducation;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private OrderStudent orderStudent;
+
+    @ManyToMany
+    @JoinTable(
+            name = "student_group",
+            joinColumns = @JoinColumn(name = "student_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id")
+    )
+    private List<Group> groups;
 }

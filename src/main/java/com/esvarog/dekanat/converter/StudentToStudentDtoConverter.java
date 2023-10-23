@@ -11,15 +11,25 @@ public class StudentToStudentDtoConverter implements Converter<Student, StudentD
     public StudentDTO convert(Student source) {
         return new StudentDTO(
                 source.getId(),
+
                 source.getFirstName(),
+                source.getSurname(),
                 source.getLastName(),
-                source.getSurName(),
-                source.getDateOfBirth().toString(),
+
                 source.getFirstNameEng(),
                 source.getLastNameEng(),
-                source.getAddress(),
+
+                source.getApplicantCardNumber(),
+                source.getNumberOfTheRecordBook(),
+                source.getContractNumber(),
+                source.getCardNumberOfTheIndividual(),
+
+                source.getPhoneNumber(),
                 source.getEmail(),
-                source.getPhoneNumber()
+
+                source.getPassData(),
+                source.getPriorEducation(),
+                source.getOrderStudent()
         );
     }
 }
