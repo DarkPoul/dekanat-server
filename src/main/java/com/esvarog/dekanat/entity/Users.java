@@ -1,9 +1,6 @@
 package com.esvarog.dekanat.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Transactional
 @AllArgsConstructor
+@Table(name = "users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

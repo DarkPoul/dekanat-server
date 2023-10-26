@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class AuthController {
-    // This class is responsible for authentication
 
     private final AuthService authService;
 
