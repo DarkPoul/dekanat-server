@@ -1,4 +1,4 @@
-CREATE TABLE Users
+CREATE TABLE users
 (
     id        BIGINT       NOT NULL AUTO_INCREMENT PRIMARY KEY,
     enabled   BIT          NOT NULL,
@@ -9,7 +9,7 @@ CREATE TABLE Users
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE Student
+CREATE TABLE student
 (
     id                            INT AUTO_INCREMENT PRIMARY KEY,
 
