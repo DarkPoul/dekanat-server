@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/dekanat</property>
+    <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+    <property name="connection.username">root</property>
+    <property name="connection.password">toor</property>
+    <property name="show_sql">true</property>
+    <property name="format_sql">true</property>
+    <property name="hibernate.highlight_sql">true</property>
+    <mapping class="com.esvarog.dekanat.entity.Users"/>
+    <mapping class="com.esvarog.dekanat.entity.Regions"/>
+    <mapping class="com.esvarog.dekanat.entity.Faculties"/>
+    <mapping class="com.esvarog.dekanat.entity.Departments"/>
+    <mapping class="com.esvarog.dekanat.entity.AssessmentTypes"/>
+    <mapping class="com.esvarog.dekanat.entity.AssessmentPartGrades"/>
+    <mapping class="com.esvarog.dekanat.entity.AssessmentPartTypes"/>
+    <mapping class="com.esvarog.dekanat.entity.Curriculum"/>
+    <mapping class="com.esvarog.dekanat.entity.Disciplines"/>
+    <mapping class="com.esvarog.dekanat.entity.EducationDocumentTypes"/>
+    <mapping class="com.esvarog.dekanat.entity.Grades"/>
+    <mapping class="com.esvarog.dekanat.entity.GroupInformation"/>
+    <mapping class="com.esvarog.dekanat.entity.Orders"/>
+    <mapping class="com.esvarog.dekanat.entity.StudentGroup"/>
+    <mapping class="com.esvarog.dekanat.entity.Students"/>
+      <mapping class="com.esvarog.dekanat.entity.OrderType"/>
+
+      <!-- DB schema will be updated if needed -->
+    <!-- <property name="hibernate.hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>

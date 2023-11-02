@@ -18,7 +18,7 @@ public class UserController {
     @PostMapping("/user/create")
     public ResponseEntity<Users> create(@RequestBody UserDTO dto){
         return new ResponseEntity<>(userService.create(new Users(
-                userService.userRepo.count() + 1L,
+                userService.usersRepo.count() + 1L,
                 dto.getUsername(),
                 dto.getPassword(),
                 dto.isEnabled(),

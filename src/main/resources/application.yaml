@@ -17,3 +17,11 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
+bot:
+  token: ${TELEGRAM_BOT_TOKEN}
+  chatId: ${TELEGRAM_CHAT_ID}
+logging:
+  file:
+    name: bot.log
+  level:
+    root: warn

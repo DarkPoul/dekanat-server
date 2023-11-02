@@ -55,6 +55,10 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/users/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/student/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/student/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/group/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/group/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/group/**").authenticated()
 
                         .anyRequest().authenticated()
                 )
