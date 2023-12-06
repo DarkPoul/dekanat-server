@@ -13,32 +13,18 @@ import java.io.File;
 
 @SpringBootApplication
 public class DekanatApplication {
-    private final DataInitializerAssessment dataInitializerAssessment;
-    private final DataInitializerDepartment dataInitializerDepartment;
-    private final DataInitializerEduDoc dataInitializerEduDoc;
-    private final DataInitializerFaculty dataInitializerFaculty;
-    private final DataInitializerGroup dataInitializerGroup;
-    private final DataInitializerOrder dataInitializerOrder;
-    private final DataInitializerRegion dataInitializerRegion;
     private final DataInitializerUser dataInitializerUser;
 
 
-    public DekanatApplication(DataInitializerAssessment dataInitializerAssessment, DataInitializerDepartment dataInitializerDepartment, DataInitializerEduDoc dataInitializerEduDoc, DataInitializerFaculty dataInitializerFaculty, DataInitializerGroup dataInitializerGroup, DataInitializerOrder dataInitializerOrder, DataInitializerRegion dataInitializerRegion, DataInitializerUser dataInitializerUser) {
-        this.dataInitializerAssessment = dataInitializerAssessment;
-        this.dataInitializerDepartment = dataInitializerDepartment;
-        this.dataInitializerEduDoc = dataInitializerEduDoc;
-        this.dataInitializerFaculty = dataInitializerFaculty;
-        this.dataInitializerGroup = dataInitializerGroup;
-        this.dataInitializerOrder = dataInitializerOrder;
-        this.dataInitializerRegion = dataInitializerRegion;
+    public DekanatApplication(DataInitializerUser dataInitializerUser) {
+
         this.dataInitializerUser = dataInitializerUser;
     }
 
     public static void main(String[] args) throws TelegramApiException {
         Dotenv dotenv = Dotenv.load();
-        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN");
+        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN_DEV");
         String chatId = dotenv.get("TELEGRAM_CHAT_ID");
-        String temp = "";
 
         File logFile = new File("bot.log");
         if (logFile.exists()) {
@@ -63,13 +49,6 @@ public class DekanatApplication {
 
     @PostConstruct
     public void init() {
-        this.dataInitializerAssessment.init();
-        this.dataInitializerDepartment.init();
-        this.dataInitializerEduDoc.init();
-        this.dataInitializerFaculty.init();
-        this.dataInitializerGroup.init();
-        this.dataInitializerOrder.init();
-        this.dataInitializerRegion.init();
         this.dataInitializerUser.init();
     }
 }

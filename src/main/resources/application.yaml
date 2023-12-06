@@ -18,7 +18,7 @@ spring:
     prefix: classpath:/templates/
     suffix: .html
 bot:
-  token: ${TELEGRAM_BOT_TOKEN}
+  token: ${TELEGRAM_BOT_TOKEN_DEV}
   chatId: ${TELEGRAM_CHAT_ID}
 logging:
   file:
