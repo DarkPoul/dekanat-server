@@ -15,10 +15,12 @@ import java.util.Map;
 public class AuthService {
 
     private final JwtProvider jwtProvider;
+    private final JwtService jwtService;
     private final UserToUserDtoConverter userToUserDtoConverter;
 
-    public AuthService(JwtProvider jwtProvider, UserToUserDtoConverter userToUserDtoConverter) {
+    public AuthService(JwtProvider jwtProvider, JwtService jwtService, UserToUserDtoConverter userToUserDtoConverter) {
         this.jwtProvider = jwtProvider;
+        this.jwtService = jwtService;
         this.userToUserDtoConverter = userToUserDtoConverter;
     }
 
@@ -27,7 +29,22 @@ public class AuthService {
         Users user = principal.getUser();
         UserDTO userDTO =  this.userToUserDtoConverter.convert(user);
 
-        String token = this.jwtProvider .createToken(authentication);
+        String token = this.jwtService.getTokenByUsername(user.getUsername());
+
+        if(token != null) {
+            Map<String, Object> loginResultMap = new HashMap<>();
+            loginResultMap.put("userInfo", userDTO);
+            loginResultMap.put("token", token);
+
+            return loginResultMap;
+        }
+        try{
+            token = this.jwtProvider.createToken(authentication);
+        } catch (Exception e) {
+            e.fillInStackTrace();
+        }
+
+
 
         Map<String, Object> loginResultMap = new HashMap<>();
         loginResultMap.put("userInfo", userDTO);

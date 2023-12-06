@@ -19,7 +19,12 @@ public class AuthController {
 
     @PostMapping("/login")
     public Result getLoginInfo(Authentication authentication) {
-        return new Result(true, 200, "Login successful", this.authService.getLoginInfo(authentication));
+        try{
+            return new Result(true, 200, "Login successful", this.authService.getLoginInfo(authentication));
+        } catch (Exception e) {
+            return new Result(false, 500, "Login failed", null);
+        }
+
     }
 
 }

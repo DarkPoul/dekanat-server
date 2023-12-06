@@ -51,6 +51,7 @@ public class Students {
     private String phoneNumber;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "region_id")
     private Regions region;
 
@@ -58,6 +59,7 @@ public class Students {
     private String address;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "faculty_id")
     private Faculties faculty;
 
@@ -92,6 +94,7 @@ public class Students {
     private String recordBookNumber;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "education_document_type_id")
     private EducationDocumentTypes educationDocumentType;
 
@@ -109,6 +112,8 @@ public class Students {
 
     @Column(name = "education_document_issue_place_eng")
     private String educationDocumentIssuePlaceEng;
+
+    //TODO обдумати чи потрібні тут наступні три поля
 
     @OneToMany(mappedBy = "students")
     @JsonIgnore
@@ -141,7 +146,7 @@ public class Students {
                 ", passportIssueDate=" + passportIssueDate +
                 ", passportExpiryDate=" + passportExpiryDate +
                 ", passportRegistrationNumber='" + passportRegistrationNumber + '\'' +
-                ", citizenship=" + citizenship +
+//                ", citizenship=" + citizenship +
                 ", identificationNumber='" + identificationNumber + '\'' +
                 ", contractNumber='" + contractNumber + '\'' +
                 ", studentCardNumber='" + studentCardNumber + '\'' +
@@ -152,9 +157,7 @@ public class Students {
                 ", educationDocumentIssueDate=" + educationDocumentIssueDate +
                 ", educationDocumentIssuePlaceUkr='" + educationDocumentIssuePlaceUkr + '\'' +
                 ", educationDocumentIssuePlaceEng='" + educationDocumentIssuePlaceEng + '\'' +
-                ", studentGroups=" + studentGroups +
-                ", curriculums=" + curriculums +
-                ", grades=" + grades +
+
                 '}';
     }
 }

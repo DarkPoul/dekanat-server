@@ -1,5 +1,9 @@
 package com.esvarog.dekanat.security;
 
+import com.esvarog.dekanat.security.JwtProvider;
+import com.esvarog.dekanat.security.initializer.JwtAuthenticationFilter;
+import com.esvarog.dekanat.service.JwtService;
+import com.esvarog.dekanat.service.UserService;
 import com.nimbusds.jose.jwk.JWK;
 import com.nimbusds.jose.jwk.JWKSet;
 import com.nimbusds.jose.jwk.RSAKey;
@@ -8,6 +12,7 @@ import com.nimbusds.jose.jwk.source.JWKSource;
 import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,6 +29,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtGra
 import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.oauth2.jwt.JwtEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -55,10 +61,6 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/users/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/student/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/student/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/group/**").authenticated()
-                        .requestMatchers(HttpMethod.PUT, "/group/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/group/**").authenticated()
 
                         .anyRequest().authenticated()
                 )

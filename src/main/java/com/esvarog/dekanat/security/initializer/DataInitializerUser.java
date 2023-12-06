@@ -8,20 +8,23 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
-public class DataInitializerUser{
+public class DataInitializerUser {
     private final UserService userService;
 
-    public void init(){
+    public void init() {
         try {
+            // Try to load the user by username
             this.userService.loadUserByUsername("admin");
-        } catch (UsernameNotFoundException e){
-            Users newUser = Users.builder()
-                    .username("admin")
-                    .password("admin")
-                    .role("ROLE_ADMIN")
-                    .enabled(true)
-                    .build();
-            this.userService.create(newUser);
+        } catch (UsernameNotFoundException e) {
+            // If the user is not found, create a new user
+            Users admin = new Users();
+            admin.setUsername("admin");
+            admin.setPassword("admin");
+            admin.setRole("ADMIN");
+            admin.setEnabled(true);
+
+            // Create the user using the create method
+            this.userService.create(admin);
         }
     }
 }

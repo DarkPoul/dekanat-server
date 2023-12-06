@@ -31,9 +31,6 @@ public class Orders {
     @Column(name = "order_date")
     private Date orderDate;
 
-    @Column(name = "order_type")
-    private Object orderType;
-
     @Column(name = "description")
     private String description;
 

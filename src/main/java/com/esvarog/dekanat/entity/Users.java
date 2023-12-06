@@ -2,10 +2,9 @@ package com.esvarog.dekanat.entity;
 
 import jakarta.persistence.*;
 import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.Instant;
 
 @Entity
 @Data
@@ -13,13 +12,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Transactional
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "users")
 public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String password;
     private boolean enabled;
+    private String password;
     private String role;
+    private String username;
+    private String token;
+    private Instant tokenExpire;
+
 }

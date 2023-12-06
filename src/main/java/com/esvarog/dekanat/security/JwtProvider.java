@@ -1,11 +1,18 @@
 package com.esvarog.dekanat.security;
 
+
+import com.esvarog.dekanat.entity.Users;
+import com.esvarog.dekanat.service.JwtService;
+import com.esvarog.dekanat.service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
+
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Component;
+
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;

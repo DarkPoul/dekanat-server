@@ -5,6 +5,8 @@ CREATE TABLE users
     password  VARCHAR(255) NOT NULL,
     role      VARCHAR(255) NOT NULL,
     username  VARCHAR(255) NOT NULL,
+    token     VARCHAR(500),
+    tokenExpire TIMESTAMP,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
@@ -115,9 +117,9 @@ CREATE TABLE student_group
 CREATE TABLE disciplines
 (
     discipline_id          INT AUTO_INCREMENT PRIMARY KEY,
-    discipline_name        VARCHAR(100) NOT NULL, -- Назва дисципліни
-    discipline_short_name  VARCHAR(20)  NOT NULL, -- Коротка назва дисципліни
-    discipline_translation VARCHAR(100) NOT NULL  -- Переклад дисципліни
+    discipline_name        VARCHAR(255) NOT NULL, -- Назва дисципліни
+    discipline_short_name  VARCHAR(255)  NOT NULL, -- Коротка назва дисципліни
+    discipline_translation VARCHAR(255) NOT NULL  -- Переклад дисципліни
 );
 
 CREATE TABLE assessment_types

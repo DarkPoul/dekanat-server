@@ -19,10 +19,12 @@ public class UserController {
     public ResponseEntity<Users> create(@RequestBody UserDTO dto){
         return new ResponseEntity<>(userService.create(new Users(
                 userService.usersRepo.count() + 1L,
-                dto.getUsername(),
-                dto.getPassword(),
                 dto.isEnabled(),
-                dto.getRole()
+                dto.getPassword(),
+                dto.getRole(),
+                dto.getUsername(),
+                dto.getToken(),
+                dto.getTokenExpire()
         )), HttpStatus.OK);
     }
 

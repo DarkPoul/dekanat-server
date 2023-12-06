@@ -11,17 +11,31 @@ import java.util.Collection;
 
 public class MyUserPrincipal implements UserDetails {
 
-    private Users user;
+    private final Users user;
 
     public MyUserPrincipal(Users user) {
         this.user = user;
+    }
+
+    public static MyUserPrincipal create(Users user) {
+
+        MyUserPrincipal myUserPrincipal = new MyUserPrincipal(null);
+        myUserPrincipal.user.setId(user.getId());
+        myUserPrincipal.user.setEnabled(user.isEnabled());
+        myUserPrincipal.user.setPassword(user.getPassword());
+        myUserPrincipal.user.setRole(user.getRole());
+        myUserPrincipal.user.setUsername(user.getUsername());
+        myUserPrincipal.user.setToken(user.getToken());
+        myUserPrincipal.user.setTokenExpire(user.getTokenExpire());
+
+        return myUserPrincipal;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 
         return Arrays.stream(StringUtils.tokenizeToStringArray(this.user.getRole(), ","))
-                .map(role -> new SimpleGrantedAuthority("ROLE_" + role))
+                .map(SimpleGrantedAuthority::new)
                 .toList();
     }
 

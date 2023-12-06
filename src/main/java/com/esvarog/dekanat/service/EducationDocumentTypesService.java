@@ -27,4 +27,8 @@ public class EducationDocumentTypesService {
     public boolean isExist(String title) {
         return educationDocumentTypesRepo.findByTypeNameUkr(title).isPresent();
     }
+
+    public EducationDocumentTypes getEducationDocumentTypeByNumber(int i) {
+        return educationDocumentTypesRepo.findByDocumentTypeId(i);
+    }
 }

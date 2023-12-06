@@ -8,4 +8,5 @@ import java.util.Optional;
 public interface EducationDocumentTypesRepo extends JpaRepository<EducationDocumentTypes, Integer> {
     //Функція пошуку типу документу за назвою
     Optional<EducationDocumentTypes> findByTypeNameUkr(String title);
+    EducationDocumentTypes findByDocumentTypeId(int i);
 }

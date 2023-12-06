@@ -13,7 +13,9 @@ public class UserToUserDtoConverter implements Converter<Users, UserDTO> {
                 source.getId(),
                 source.getUsername(),
                 source.isEnabled(),
-                source.getRole()
+                source.getRole(),
+                source.getToken(),
+                source.getTokenExpire()
         );
     }
 }

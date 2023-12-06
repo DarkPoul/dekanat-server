@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ua">
+<html lang="ua" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <title>Деканат-Головна</title>
     <meta charset="utf-8">
@@ -158,7 +158,11 @@
             <h3 class="news-item-title">Новина 1</h3>
             <p class="news-item-text">Текст новини 1. Текст новини 1. Текст новини 1. Текст новини 1.</p>
             <p class="news-item-date">Дата публікації: 01.06.2023</p>
-            <a href="#" class="news-item-button">Детальніше</a>
+            <form th:action="@{/import/regions}" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" placeholder="Оберіть файл з регіонами" />
+                <button type="submit">Upload</button>
+            </form>
+
         </div>
         <div class="news-item">
             <h3 class="news-item-title">Новина 2</h3>
@@ -198,23 +202,20 @@
                     text: 'Текст новини 3',
                     date: '2023-06-01'
                 }
-                // Додайте більше новин
             ]
         }
     });
-    function create_user(){
-        const data = {
-            key1: 'user',
-            key2: 'user',
-            // Додайте інші поля даних, які потрібні
-        };
 
-        fetch('/create_user', {
+    function create_user() {
+        const fileInput = document.querySelector('input[type="file"]');
+        const file = fileInput.files[0];
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/import/regions', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
+            body: formData,
         })
             .then(response => {
                 if (response.ok) {
@@ -228,5 +229,6 @@
             });
     }
 </script>
+
 </body>
 </html>

@@ -28,5 +28,10 @@ public class RegionService {
         return this.regionsRepo.existsByRegionName(regionName);
     }
 
+    //метод для отримання регіону за його id
+    public Regions findRegionById(Integer id) {
+        return this.regionsRepo.findById(id).orElse(null);
+    }
+
 
 }
