@@ -38,6 +38,7 @@ public class DekanatApplication {
         Dotenv dotenv = Dotenv.load();
         String botToken = dotenv.get("TELEGRAM_BOT_TOKEN");
         String chatId = dotenv.get("TELEGRAM_CHAT_ID");
+        String temp = "";
 
         File logFile = new File("bot.log");
         if (logFile.exists()) {
