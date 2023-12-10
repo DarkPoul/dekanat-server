@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DisciplinesRepository extends JpaRepository<Disciplines, Integer>{
 
+    Disciplines findByDisciplineName(String disciplineName);
 }

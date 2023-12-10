@@ -29,4 +29,8 @@ public class FacultiesService {
     public Faculties getFacultyByNumber(Integer s) {
         return this.facultiesRepo.findByFacultyId(s);
     }
+
+    public Faculties getFacultyByName(String name) {
+        return this.facultiesRepo.findByFacultyName(name);
+    }
 }

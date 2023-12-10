@@ -1,1 +1,35 @@
-2023-12-06T14:30:42.560+02:00  WARN 85792 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-10T20:53:14.909+02:00  INFO 110172 --- [main] com.esvarog.dekanat.DekanatApplication   : Starting DekanatApplication using Java 17.0.9 with PID 110172 (C:\Users\poulp\Desktop\Dekanat\target\classes started by poulp in C:\Users\poulp\Desktop\Dekanat)
+2023-12-10T20:53:14.911+02:00  INFO 110172 --- [main] com.esvarog.dekanat.DekanatApplication   : No active profile set, falling back to 1 default profile: "default"
+2023-12-10T20:53:15.703+02:00  INFO 110172 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-12-10T20:53:15.760+02:00  INFO 110172 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 11 JPA repository interfaces.
+2023-12-10T20:53:16.183+02:00  INFO 110172 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-12-10T20:53:16.190+02:00  INFO 110172 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-12-10T20:53:16.191+02:00  INFO 110172 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2023-12-10T20:53:16.248+02:00  INFO 110172 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-12-10T20:53:16.248+02:00  INFO 110172 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1301 ms
+2023-12-10T20:53:16.445+02:00  INFO 110172 --- [main] o.f.c.internal.license.VersionPrinter    : Flyway Community Edition 9.5.1 by Redgate
+2023-12-10T20:53:16.445+02:00  INFO 110172 --- [main] o.f.c.internal.license.VersionPrinter    : See what's new here: https://flywaydb.org/documentation/learnmore/releaseNotes#9.5.1
+2023-12-10T20:53:16.445+02:00  INFO 110172 --- [main] o.f.c.internal.license.VersionPrinter    : 
+2023-12-10T20:53:16.452+02:00  INFO 110172 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-12-10T20:53:16.593+02:00  INFO 110172 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6706da3d
+2023-12-10T20:53:16.595+02:00  INFO 110172 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-12-10T20:53:16.619+02:00  INFO 110172 --- [main] o.f.c.i.database.base.BaseDatabaseType   : Database: jdbc:mysql://localhost:3306/dekanat (MySQL 8.0)
+2023-12-10T20:53:16.670+02:00  INFO 110172 --- [main] o.f.core.internal.command.DbValidate     : Successfully validated 1 migration (execution time 00:00.025s)
+2023-12-10T20:53:16.687+02:00  INFO 110172 --- [main] o.f.core.internal.command.DbMigrate      : Current version of schema `dekanat`: 1
+2023-12-10T20:53:16.689+02:00  INFO 110172 --- [main] o.f.core.internal.command.DbMigrate      : Schema `dekanat` is up to date. No migration necessary.
+2023-12-10T20:53:16.772+02:00  INFO 110172 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-12-10T20:53:16.811+02:00  INFO 110172 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-12-10T20:53:17.084+02:00  INFO 110172 --- [main] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MySQLDialect
+2023-12-10T20:53:17.889+02:00  INFO 110172 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-12-10T20:53:17.896+02:00  INFO 110172 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-12-10T20:53:19.258+02:00  WARN 110172 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-12-10T20:53:19.545+02:00  INFO 110172 --- [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint(s) beneath base path '/actuator'
+2023-12-10T20:53:19.606+02:00  INFO 110172 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@36deacfc, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3b0471a5, org.springframework.security.web.context.SecurityContextHolderFilter@2139aa1f, org.springframework.security.web.header.HeaderWriterFilter@74ed11d7, org.springframework.web.filter.CorsFilter@78167, org.springframework.security.web.authentication.logout.LogoutFilter@4c19b0a8, org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter@2603a76d, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@119d21ce, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@578a12e9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@6bbf282d, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@214738c1, org.springframework.security.web.session.SessionManagementFilter@3821a012, org.springframework.security.web.access.ExceptionTranslationFilter@1694cbc, org.springframework.security.web.access.intercept.AuthorizationFilter@189fe8af]
+2023-12-10T20:53:19.885+02:00  INFO 110172 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-12-10T20:53:19.897+02:00  INFO 110172 --- [main] com.esvarog.dekanat.DekanatApplication   : Started DekanatApplication in 5.332 seconds (process running for 7.303)
+2023-12-10T20:53:20.335+02:00  INFO 110172 --- [RMI TCP Connection(2)-192.168.0.102] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-12-10T20:53:20.336+02:00  INFO 110172 --- [RMI TCP Connection(2)-192.168.0.102] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2023-12-10T20:53:20.338+02:00  INFO 110172 --- [RMI TCP Connection(2)-192.168.0.102] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2023-12-10T20:53:27.260+02:00  INFO 110172 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-12-10T20:53:27.263+02:00  INFO 110172 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-12-10T20:53:27.270+02:00  INFO 110172 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

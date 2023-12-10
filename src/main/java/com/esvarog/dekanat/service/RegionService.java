@@ -34,4 +34,7 @@ public class RegionService {
     }
 
 
+    public Regions getRegionByName(String Name) {
+        return this.regionsRepo.findByRegionName(Name);
+    }
 }

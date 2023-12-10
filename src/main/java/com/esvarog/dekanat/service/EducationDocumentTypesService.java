@@ -31,4 +31,8 @@ public class EducationDocumentTypesService {
     public EducationDocumentTypes getEducationDocumentTypeByNumber(int i) {
         return educationDocumentTypesRepo.findByDocumentTypeId(i);
     }
+
+    public EducationDocumentTypes getEducationDocumentTypeByName(String name) {
+        return educationDocumentTypesRepo.findByTypeNameUkr(name).orElse(null);
+    }
 }

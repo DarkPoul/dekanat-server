@@ -8,4 +8,6 @@ public interface FacultiesRepo extends JpaRepository<Faculties, Integer> {
     boolean existsByFacultyName(String facultyName);
 
     Faculties findByFacultyId(Integer s);
+
+    Faculties findByFacultyName(String name);
 }

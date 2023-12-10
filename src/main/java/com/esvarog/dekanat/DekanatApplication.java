@@ -23,8 +23,8 @@ public class DekanatApplication {
 
     public static void main(String[] args) throws TelegramApiException {
         Dotenv dotenv = Dotenv.load();
-        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN");
-//        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN_DEV");
+//        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN");
+        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN_DEV");
         String chatId = dotenv.get("TELEGRAM_CHAT_ID");
 
         File logFile = new File("bot.log");
