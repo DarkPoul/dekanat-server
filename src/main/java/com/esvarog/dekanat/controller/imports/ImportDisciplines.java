@@ -4,9 +4,7 @@ import com.esvarog.dekanat.controller.ExcelFileProcessor;
 import com.esvarog.dekanat.entity.Result;
 import com.esvarog.dekanat.service.*;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -15,6 +13,7 @@ import java.io.IOException;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*", methods = {RequestMethod.POST, RequestMethod.OPTIONS}, allowedHeaders = {"Content-Type", "Authorization"})
 public class ImportDisciplines {
 
     private final DisciplinesService disciplinesService;

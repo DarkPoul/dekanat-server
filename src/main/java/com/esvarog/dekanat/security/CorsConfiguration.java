@@ -32,7 +32,11 @@ public class CorsConfiguration {
 
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
 
-                        .allowedHeaders("*"); // Enable CORS for the whole application.
+                        .exposedHeaders("Authorization")
+
+                        .allowedHeaders("*") // Enable CORS for the whole application.
+
+                        ;
 
             }
         };
