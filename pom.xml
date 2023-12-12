@@ -104,6 +104,12 @@
             <version>4.1.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.5</version>
+        </dependency>
+
         <!--Бот для прийому логів-->
         <dependency>
             <groupId>org.telegram</groupId>
