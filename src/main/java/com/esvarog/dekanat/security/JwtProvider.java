@@ -13,7 +13,6 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Component;
 
-
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.stream.Collectors;
@@ -28,11 +27,13 @@ public class JwtProvider {
     }
 
     public String createToken(Authentication authentication){
+        String secretKey = "yourSecretKey";
         Instant now = Instant.now();
-        long expiresIn = 2;
+        long expiresIn = 1;
         String authorities = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .collect(Collectors.joining(","));
+
         JwtClaimsSet claims = JwtClaimsSet.builder()
                 .issuer("self")
                 .issuedAt(now)
@@ -40,6 +41,8 @@ public class JwtProvider {
                 .subject(authentication.getName())
                 .claim("authorities", authorities)
                 .build();
+
+
         return this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }
 }

@@ -51,11 +51,19 @@ public class StudentGroupController {
         return new Result(true, 200, "Інформацію про групи отримано", studentGroupService.getAllGroups());
     }
 
+    /**
+     * Deletes a group by its ID.
+     *
+     * @param id The ID of the group to be deleted.
+     * @return A Result object indicating the status of the deletion.
+     */
     //метод видалення групи по id
     @DeleteMapping("/group/{id}")
     public Result deleteGroup(@PathVariable Integer id) {
         studentGroupService.deleteGroup(id);
         return new Result(true, 200, "Групу видалено");
     }
+
+
 
 }

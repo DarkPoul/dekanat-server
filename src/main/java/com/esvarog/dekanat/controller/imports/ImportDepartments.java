@@ -22,9 +22,10 @@ public class ImportDepartments {
     private final FacultiesService facultiesService;
     private final EducationDocumentTypesService educationDocumentTypesService;
 
-    @PostMapping(path = "/import/departments")
+    @PostMapping(path = "/imports/departments")
     public Result importDepartments(@RequestPart("file") MultipartFile file){
         try {
+            System.out.println(file.getOriginalFilename());
             File tempFile = File.createTempFile("temp", null);
             file.transferTo(tempFile);
             FileInputStream fileInputStream = new FileInputStream(tempFile);
