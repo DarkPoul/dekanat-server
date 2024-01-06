@@ -67,8 +67,8 @@ public class SecurityConfiguration extends SecurityConfigurerAdapter<DefaultSecu
                 .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(HttpMethod.GET, "/curricula/**").authenticated()
                         .requestMatchers(HttpMethod.GET, "/district/**").authenticated()
-                        .requestMatchers(HttpMethod.POST, "/users/**").authenticated()
-                        .requestMatchers(HttpMethod.GET, "/users/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/user/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/user/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/login/**").permitAll()
 
                         .requestMatchers(HttpMethod.GET, "/student/**").authenticated()

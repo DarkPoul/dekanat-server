@@ -23,6 +23,7 @@ public class Users {
     private String password;
     private String role;
     private String username;
+    private int facultyId;
     private String token;
     private Instant tokenExpire;
 

@@ -46,10 +46,12 @@ public class StudentGroupController {
     }
 
     //метод отримання усіх груп
-    @GetMapping("/group")
-    public Result getAllGroups() {
-        return new Result(true, 200, "Інформацію про групи отримано", studentGroupService.getAllGroups());
-    }
+//    @GetMapping("/group")
+//    public Result getAllGroups() {
+//        return new Result(true, 200, "Інформацію про групи отримано", studentGroupService.getAllGroups());
+//    }
+
+
 
     /**
      * Deletes a group by its ID.
@@ -63,6 +65,7 @@ public class StudentGroupController {
         studentGroupService.deleteGroup(id);
         return new Result(true, 200, "Групу видалено");
     }
+
 
 
 

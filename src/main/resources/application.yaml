@@ -25,8 +25,8 @@ spring:
       max-file-size: 5MB
       max-request-size: 20MB
 bot:
-  token: ${TELEGRAM_BOT_TOKEN}
-#  token: ${TELEGRAM_BOT_TOKEN_DEV}
+#  token: ${TELEGRAM_BOT_TOKEN}
+  token: ${TELEGRAM_BOT_TOKEN_DEV}
   chatId: ${TELEGRAM_CHAT_ID}
 logging:
   file:

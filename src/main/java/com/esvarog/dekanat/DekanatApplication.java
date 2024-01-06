@@ -14,17 +14,19 @@ import java.io.File;
 @SpringBootApplication
 public class DekanatApplication {
     private final DataInitializerUser dataInitializerUser;
+    private final DataInitializerRegion dataInitializerRegion;
 
 
-    public DekanatApplication(DataInitializerUser dataInitializerUser) {
+    public DekanatApplication(DataInitializerUser dataInitializerUser, DataInitializerRegion dataInitializerRegion) {
 
         this.dataInitializerUser = dataInitializerUser;
+        this.dataInitializerRegion = dataInitializerRegion;
     }
 
     public static void main(String[] args) throws TelegramApiException {
         Dotenv dotenv = Dotenv.load();
-        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN");
-//        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN_DEV");
+//        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN");
+        String botToken = dotenv.get("TELEGRAM_BOT_TOKEN_DEV");
         String chatId = dotenv.get("TELEGRAM_CHAT_ID");
 
         File logFile = new File("bot.log");
@@ -51,5 +53,6 @@ public class DekanatApplication {
     @PostConstruct
     public void init() {
         this.dataInitializerUser.init();
+        this.dataInitializerRegion.init();
     }
 }

@@ -2,10 +2,7 @@ package com.esvarog.dekanat.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 import java.util.Objects;
@@ -15,6 +12,8 @@ import java.util.Objects;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Table(name = "group_information", schema = "dekanat")
 public class GroupInformation {
     @Id
@@ -36,4 +35,7 @@ public class GroupInformation {
     @JsonIgnore
     private List<StudentGroup> studentGroups;
 
+    public int getId() {
+        return groupId;
+    }
 }
